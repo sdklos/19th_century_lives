@@ -22,7 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'cancancan'
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 gem 'dotenv-rails'
 
 # Use CoffeeScript for .coffee assets and views
