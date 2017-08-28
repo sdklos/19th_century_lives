@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/auth/google/callback' => 'sessions#create'
+  root 'welcome#home'
+
+  devise_for :users, :controllers => { omniauth_callbacks: "users/omniauth_callbacks"}
 end

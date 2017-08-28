@@ -1,13 +1,13 @@
 <nav class="">
     <ul>
-        <li> <%= link_to **home %> </li>
+        <li> <%= link_to "Home", root_path %> </li>
         <% if user_signed_in? %>
           <li>Signed in as <%= current_user.email %></li>
-          <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
         <% else %>
-          <li><%= link_to "sign in", new_user_session_path %></li>
-          <li><%= link_to "Sign up", new_user_registration_path %></li>
-          <li><%= link_to "Log in with Google", '/auth/google'
+          <li><%= link_to "Sign In", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Log in with Google", user_google_oauth2_omniauth_authorize_path %></li>
         <% end %>
     </ul>
 </nav>
