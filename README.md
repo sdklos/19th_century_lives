@@ -2,6 +2,32 @@
 
 This app will have:
 
+a places table : city(string) country(string) comments(text)
+a persons table : name, year of birth, year of death comments(text)
+a persons_places join table person_id place_id
+a children_parents self join table, person_id, parent_id, child_id,
+
+a person has_many :children_parents, class_name: 'ChildParent', foreign_key: :person_id
+a person has_many :parents, through: :children_parents, class_name: 'Person', foreign_key: :child_id
+a person has_many :children, through: :children_parents, class_name: 'Person', foreign_key: :parent_id
+
+a person has_many :persons_places
+
+a ChildParent belongs_to :parent, class_name: 'Person', foreign_key: :parent_id
+a relationship belongs_to :child, class_name: 'Person', foreign_key: :child_id
+a relationship belongs_to :person, class_name: 'Person', foreign_key: :person_id
+
+
+persons instance methods:
+siblings
+grandparents
+aunts_and_uncles
+nephews_and_nieces
+cousins
+
+places instance methods:
+coordinates=(location)
+coordinates
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
