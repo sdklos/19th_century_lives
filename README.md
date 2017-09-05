@@ -2,9 +2,10 @@
 
 This app will have:
 
-a places table : city(string) country(string) comments(text)
+a boroughs table : name(string), comments(text)
+a neighborhoods table : name(string), borough_id, comments(text)
 a persons table : name, year of birth, year of death comments(text)
-a persons_places join table person_id place_id
+a persons_neighborhoods join table person_id place_id
 a children_parents self join table, person_id, parent_id, child_id,
 
 a person has_many :children_parents, class_name: 'ChildParent', foreign_key: :person_id
@@ -24,10 +25,6 @@ grandparents
 aunts_and_uncles
 nephews_and_nieces
 cousins
-
-places instance methods:
-coordinates=(location)
-coordinates
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
