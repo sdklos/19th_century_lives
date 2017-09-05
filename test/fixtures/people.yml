@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  year_of_birth: 1
+  year_of_death: 1
+  comments: MyText
+
+two:
+  name: MyString
+  year_of_birth: 1
+  year_of_death: 1
+  comments: MyText

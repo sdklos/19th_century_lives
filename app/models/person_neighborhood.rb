@@ -1,0 +1,2 @@
+class PersonNeighborhood < ApplicationRecord
+end
