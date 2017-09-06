@@ -19,12 +19,65 @@ class Person < ApplicationRecord
     b.save
   end
 
-  def self.persist_parenthood(parent_id, child_id)
-    a = Person.find(parent_id)
-    b = Person.find(child_id)
-    a.children << b
-    b.parents << a
+  def self.persist_parenthood(child_id, parent_id)
+    a = Person.find(child_id)
+    b = Person.find(first_parent_id)
+    a.parents << b
+    b.children << a
     a.save
     b.save
+  end
+
+  def siblings
+    siblings = []
+    a = self.parents.map {|parent| parent.id}
+    Person.all.each do |person|
+      person.parents.each do |parent|
+        if a.include?(parent.id) && person != self
+          siblings << person
+        end
+      end
+    end
+    siblings.uniq!
+  end
+
+  def grandparents
+    grandparents = []
+    self.parents.each do |parent|
+      parent.parents.each do |grandparent|
+        grandparents << grandparent
+      end
+    end
+    grandparents
+  end
+
+  def aunts_and_uncles
+    aunts_and_uncles = []
+    self.parents.each do |parent|
+      parent.siblings.each do |sibling|
+        aunts_and_uncles << sibling
+      end
+    end
+    aunts_and_uncles
+  end
+
+  def nephews_and_nieces
+    nephews_and_nieces = []
+    self.siblings.each do |sibling|
+      sibling.children.each do |child|
+        nephews_and_nieces << child
+      end
+    end
+    nephews_and_nieces
+  end
+
+  def cousins
+    cousins = []
+    self.aunts_and_uncles.each do |aunt_uncle|
+      aunt_uncle.children.each do |cousin|
+        cousins << cousin
+      end
+    end
+    cousins
   end
 end
