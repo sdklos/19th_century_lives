@@ -1,5 +1,7 @@
 # README
 
+to do : create child, parent, husband, wife models
+
 This app will have:
 
 a boroughs table : name(string), comments(text)

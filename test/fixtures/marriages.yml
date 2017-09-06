@@ -2,10 +2,8 @@
 
 one:
   person_id: 1
-  husband_id: 1
-  wife_id: 1
+  spouse_id: 1
 
 two:
   person_id: 1
-  husband_id: 1
-  wife_id: 1
+  spouse_id: 1
