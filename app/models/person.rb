@@ -10,6 +10,8 @@ class Person < ApplicationRecord
   has_many :neighborhoods, through: :person_neighborhoods
   has_many :boroughs, through: :neighborhoods
 
+  belongs_to :user, foreign_key: :creator_id
+
   def self.persist_marriage(first_spouse_id, second_spouse_id)
     a = Person.find(first_spouse_id)
     b = Person.find(second_spouse_id)
