@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  extend Alphebatizable
+  
   has_many :child_parents, class_name: 'ChildParent', foreign_key: :person_id
   has_many :parents, through: :child_parents, class_name: 'Person', foreign_key: :child_id
   has_many :children, through: :child_parents, class_name: 'Person', foreign_key: :parent_ids
@@ -82,4 +84,6 @@ class Person < ApplicationRecord
     end
     cousins
   end
+
+
 end
