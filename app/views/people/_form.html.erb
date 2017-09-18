@@ -1,0 +1,18 @@
+<%= form_for(@person) do |f| %>
+  <% if @person.errors.any? %>
+  <h2><%= pluralize(@person.errors.count, "error") %> prohibited this post from being saved:</h2>
+   <ul>
+     <% @person.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+     <% end %>
+   </ul>
+   <% end %>
+
+   <%= f.label :name, 'Family Name' %><br>
+   <%= f.text_field :name %><br>
+   <%= f.label :given_name %><br>
+   <%= f.text_field :given_name %><br>
+   <%= f.select(:year_of_birth, [1700..1900], {include_blank: "Select Year of Birth"}) %><br>
+   <%= f.select(:year_of_death, [1800..1920], {include_blank: "Select Year of Death"}) %><br>
+
+<% end %>

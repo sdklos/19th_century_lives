@@ -5,6 +5,7 @@ class Ability
     if user
       if user.admin?
         can :manage, :all
+        cannot [:update, :destroy], Borough
       else
         can :manage, Person, creator_id: user.id
         can :read, :all

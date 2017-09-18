@@ -4,4 +4,11 @@ class PeopleController < ApplicationController
   def index
     @people = Person.alphabetize
   end
+
+  def new
+    @person = Person.new
+    @person.parents.build
+    @person.children.build
+    @person.spouses.build
+  end
 end

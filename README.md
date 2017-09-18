@@ -10,7 +10,7 @@ rails name must validate to a format with lastname, given name eg
         message: "only allows letters" }
     end
 
-    or -- create "display" method 
+    or -- create "display" method
 
 permissions -- views look like
 <% if can? :update, @article %>
@@ -26,8 +26,6 @@ permissions -- views look like
 set up routes
 
 set up views:
-  index of neighborhoods and boroughs
-  index of families (find people who don't have parents)
   show neighborhood, borough, family
   add
   edit
