@@ -1,0 +1,5 @@
+<h1>Index of Boroughs</h1>
+
+<% @boroughs.each do |borough| %>
+  <%= render :partial => "partials/index", locals: {path: borough_path(borough), item: borough} %>
+<% end %>

@@ -4,6 +4,14 @@ to do :
 
 validations for models (do later)
 
+rails name must validate to a format with lastname, given name eg
+    class Product < ApplicationRecord
+      validates :legacy_code, format: { with: /\A[a-zA-Z]+\z/,
+        message: "only allows letters" }
+    end
+
+    or -- create "display" method 
+
 permissions -- views look like
 <% if can? :update, @article %>
   <%= link_to "Edit", edit_article_path(@article) %>

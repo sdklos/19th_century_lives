@@ -1,5 +1,5 @@
 <h1>Index of People</h1>
 
-<% Person.alphabetize.each do |person| %>
-  <h3><%= link_to "#{person.name}, #{person.given_name}", person_path(person) %></h3>
+<% @people.each do |person| %>
+  <%= render :partial => "partials/index", locals: {path: person_path(person), item: person} %>
 <% end %>

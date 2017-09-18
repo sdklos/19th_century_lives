@@ -1,4 +1,4 @@
-module Alphebatizable
+module Alphabetizable
 
   def alphabetize
     self.order(:name)

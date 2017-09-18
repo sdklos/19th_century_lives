@@ -1,6 +1,6 @@
 class Person < ApplicationRecord
-  extend Alphebatizable
-  
+  extend Alphabetizable
+
   has_many :child_parents, class_name: 'ChildParent', foreign_key: :person_id
   has_many :parents, through: :child_parents, class_name: 'Person', foreign_key: :child_id
   has_many :children, through: :child_parents, class_name: 'Person', foreign_key: :parent_ids
@@ -12,7 +12,7 @@ class Person < ApplicationRecord
   has_many :neighborhoods, through: :person_neighborhoods
   has_many :boroughs, through: :neighborhoods
 
-  belongs_to :user, foreign_key: :creator_id
+  belongs_to :user, optional: true, foreign_key: :creator_id
 
   def self.persist_marriage(first_spouse_id, second_spouse_id)
     a = Person.find(first_spouse_id)
@@ -83,6 +83,10 @@ class Person < ApplicationRecord
       end
     end
     cousins
+  end
+
+  def display
+    "#{self.name}, #{self.given_name}"
   end
 
 
