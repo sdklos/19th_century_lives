@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
   def new
     @person = Person.new
     @person.parents.build
+    @person.parents.build
     @person.children.build
     @person.spouses.build
   end

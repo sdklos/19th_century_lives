@@ -8,11 +8,45 @@
    </ul>
    <% end %>
 
-   <%= f.label :name, 'Family Name' %><br>
-   <%= f.text_field :name %><br>
-   <%= f.label :given_name %><br>
-   <%= f.text_field :given_name %><br>
-   <%= f.select(:year_of_birth, [1700..1900], {include_blank: "Select Year of Birth"}) %><br>
-   <%= f.select(:year_of_death, [1800..1920], {include_blank: "Select Year of Death"}) %><br>
+   <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
+   <div><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
+   <div><%= f.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+   <div><%= f.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+   <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
+
+      <br>
+
+   <h2><%= f.label :spouse_ids, "Select Spouses" %></h2>
+   <%= f.collection_check_boxes :spouse_ids, Person.all, :id, :display %>
+
+      <br>
+
+   <h2>Or Generate a New Spouse (You may add additional spouses later)</h2>
+     <%= f.fields_for :spouses do |spouse_fields| %>
+        <%= spouse_fields.text_field :name, :placeholder => "Family Name" %>
+        <div><%= spouse_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+        <div><%= spouse_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+       <div> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+       <div> <%= spouse_fields.text_area :comments, :placeholder => "Comments" %></div>
+      <% end %>
+
+      <br>
+
+      <h2><%= f.label :parent_ids, "Select Parents" %></h2>
+      <%= f.collection_check_boxes :parent_ids, Person.all, :id, :display %>
+
+         <br>
+
+      <h2>Or Generate New Parents</h2>
+        <% @person.parents.each do |parent| %>
+           <%= f.fields_for "parents[]", parent do |parent_fields| %>
+              <%= parent_fields.text_field :name, :placeholder => "Family Name" %>
+              <div><%= parent_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+              <div><%= parent_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+             <div> <%= parent_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+             <div> <%= parent_fields.text_area :comments, :placeholder => "Comments" %></div>
+              <br>
+          <% end %>
+        <% end %>
 
 <% end %>
