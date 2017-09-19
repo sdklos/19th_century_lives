@@ -14,6 +14,11 @@ class Person < ApplicationRecord
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
+  accepts_nested_attributes_for :parents
+  accepts_nested_attributes_for :spouses
+  accepts_nested_attributes_for :children
+  accepts_nested_attributes_for :neighborhoods
+
   def self.persist_marriage(first_spouse_id, second_spouse_id)
     a = Person.find(first_spouse_id)
     b = Person.find(second_spouse_id)
