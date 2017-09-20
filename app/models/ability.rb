@@ -8,6 +8,7 @@ class Ability
         cannot [:update, :destroy], Borough
       else
         can :manage, Person, creator_id: user.id
+        can [:create, :update], Neighborhood
         can :read, :all
       end
     else

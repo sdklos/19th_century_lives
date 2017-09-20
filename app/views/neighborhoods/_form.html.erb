@@ -1,0 +1,6 @@
+<%= form_for(@neighborhood) do |f| %>
+  <div><%= f.text_field :name, :placeholder => "Name" %></div>
+  <div><%= f.collection_select :borough_id, Borough.all, :id, :name, include_blank: "Select Borough" %></div>
+  <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
+  <div><%= f.submit %>
+<% end %>

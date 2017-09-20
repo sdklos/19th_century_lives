@@ -16,7 +16,15 @@ class PeopleController < ApplicationController
     puts params
     @person = Person.new(person_params)
     @person.creator_id = current_user.id
-    @person.save_associations
+    respond_to do |format|
+      if @person.save
+        format.html { redirect_to @person, notice: 'Person was successfully created.'}
+        format.json {render action: 'show', status: :created, location: @person}
+      else
+        format.html {render action: 'new'}
+        format.json {render json: @person.errors, status: :unprocessable_entity}
+      end
+    end
 
   end
 
@@ -30,7 +38,17 @@ class PeopleController < ApplicationController
   end
 
   def update
-    @person.save_associations
+    @person = Person.find(params[:id])
+    @person.update(person_params)
+    respond_to do |format|
+      if @person.save
+        format.html { redirect_to @person, notice: 'Person was successfully created.'}
+        format.json {render action: 'show', status: :created, location: @person}
+      else
+        format.html {render action: 'new'}
+        format.json {render json: @person.errors, status: :unprocessable_entity}
+      end
+    end
   end
 
   private
