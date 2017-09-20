@@ -2,7 +2,11 @@
 
 to do :
 
-validations for models (do before testing form)
+add page & form to add/create family members
+add method to remove family relationship and link to that on person show page, and route
+
+add page to add/edit neighborhoods
+add method to remove neighborhood association and link to that on person show page (a link that is really a form, i think)
 
 permissions -- views look like
 <% if can? :update, @article %>

@@ -1,0 +1,2 @@
+class SpousesController < ApplicationController
+end
