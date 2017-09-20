@@ -3,7 +3,7 @@ class Person < ApplicationRecord
 
   has_many :child_parents, class_name: 'ChildParent', foreign_key: :person_id
   has_many :parents, through: :child_parents, class_name: 'Person', foreign_key: :child_id
-  has_many :children, through: :child_parents, class_name: 'Person', foreign_key: :parent_ids
+  has_many :children, through: :child_parents, class_name: 'Person', foreign_key: :parent_id
 
   has_many :marriages, class_name: 'Marriage', foreign_key: :person_id
   has_many :spouses, through: :marriages, class_name: 'Person', foreign_key: :spouse_id
@@ -14,10 +14,15 @@ class Person < ApplicationRecord
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
-  accepts_nested_attributes_for :parents
-  accepts_nested_attributes_for :spouses
-  accepts_nested_attributes_for :children
-  accepts_nested_attributes_for :neighborhoods
+  accepts_nested_attributes_for :neighborhoods, reject_if: :reject_neighborhoods
+
+  validates :name, :given_name, presence: true
+
+
+  def reject_neighborhoods(attributes)
+    attributes['name'].blank? || attributes['borough_id'].blank?
+  end
+
 
   def self.persist_marriage(first_spouse_id, second_spouse_id)
     a = Person.find(first_spouse_id)
@@ -39,11 +44,13 @@ class Person < ApplicationRecord
 
   def siblings
     siblings = []
-    a = self.parents.map {|parent| parent.id}
-    Person.all.each do |person|
-      person.parents.each do |parent|
-        if a.include?(parent.id) && person != self
-          siblings << person
+    if self.parents
+      a = self.parents.map {|parent| parent.id}
+      Person.all.each do |person|
+        person.parents.each do |parent|
+          if a.include?(parent.id) && person != self
+            siblings << person
+          end
         end
       end
     end
@@ -52,9 +59,11 @@ class Person < ApplicationRecord
 
   def grandparents
     grandparents = []
-    self.parents.each do |parent|
-      parent.parents.each do |grandparent|
-        grandparents << grandparent
+    if self.parents
+      self.parents.each do |parent|
+        parent.parents.each do |grandparent|
+          grandparents << grandparent
+        end
       end
     end
     grandparents
@@ -62,9 +71,11 @@ class Person < ApplicationRecord
 
   def aunts_and_uncles
     aunts_and_uncles = []
-    self.parents.each do |parent|
-      parent.siblings.each do |sibling|
-        aunts_and_uncles << sibling
+    if self.parents
+      self.parents.each do |parent|
+        parent.siblings.each do |sibling|
+          aunts_and_uncles << sibling
+        end
       end
     end
     aunts_and_uncles
@@ -72,9 +83,11 @@ class Person < ApplicationRecord
 
   def nephews_and_nieces
     nephews_and_nieces = []
-    self.siblings.each do |sibling|
-      sibling.children.each do |child|
-        nephews_and_nieces << child
+    if self.siblings
+      self.siblings.each do |sibling|
+        sibling.children.each do |child|
+          nephews_and_nieces << child
+        end
       end
     end
     nephews_and_nieces
@@ -82,9 +95,11 @@ class Person < ApplicationRecord
 
   def cousins
     cousins = []
-    self.aunts_and_uncles.each do |aunt_uncle|
-      aunt_uncle.children.each do |cousin|
-        cousins << cousin
+    if self.aunts_and_uncles
+      self.aunts_and_uncles.each do |aunt_uncle|
+        aunt_uncle.children.each do |cousin|
+          cousins << cousin
+        end
       end
     end
     cousins

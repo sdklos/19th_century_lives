@@ -1,0 +1,80 @@
+<%= form_for(@person) do |f| %>
+  <% if @person.errors.any? %>
+    <h2><%= pluralize(@person.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <ul>
+      <% @person.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
+  <div><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
+  <div><%= f.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+  <div><%= f.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+  <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
+
+      <br>
+
+  <h2><%= f.label :parent_ids, "Select Parents" %></h2>
+    <%= f.collection_check_boxes :parent_ids, Person.all, :id, :display %>
+
+      <br>
+
+  <h2>Or Generate New Parents</h2>
+      <%= f.fields_for :parents do |parent_fields| %>
+        <%= parent_fields.text_field :name, :placeholder => "Family Name" %>
+        <div><%= parent_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+        <div><%= parent_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+        <div> <%= parent_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+        <div> <%= parent_fields.text_area :comments, :placeholder => "Comments" %></div>
+      <% end %>
+
+      <br>
+
+  <h2><%= f.label :spouse_ids, "Select Spouses" %></h2>
+    <%= f.collection_check_boxes :spouse_ids, Person.all, :id, :display %>
+
+      <br>
+
+  <h2>Or Generate a New Spouse (You may create additional spouses later)</h2>
+    <%= f.fields_for :spouses do |spouse_fields| %>
+      <%= spouse_fields.text_field :name, :placeholder => "Family Name" %>
+      <div><%= spouse_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+      <div><%= spouse_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+      <div> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+      <div> <%= spouse_fields.text_area :comments, :placeholder => "Comments" %></div>
+    <% end %>
+
+      <br>
+
+  <h2><%= f.label :child_ids, "Select Children" %></h2>
+      <%= f.collection_check_boxes :child_ids, Person.all, :id, :display %>
+
+      <br>
+
+  <h2>Or Generate a New Child (You may create additional children later)</h2>
+    <%= f.fields_for :children do |child_fields| %>
+      <%= child_fields.text_field :name, :placeholder => "Family Name" %>
+      <div><%= child_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+      <div><%= child_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+      <div> <%= child_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+      <div> <%= child_fields.text_area :comments, :placeholder => "Comments" %></div>
+    <% end %>
+
+      <br>
+
+  <h2>Select the Neighborhoods where your Person Lived</h2>
+    <div><%= f.collection_check_boxes :neighborhood_ids, Neighborhood.all, :id, :display %></div>
+
+      <br>
+
+  <h2>Or Create a New Neighborhood (You may create additional neighborhoods later)</h2>
+    <%= f.fields_for :neighborhoods do |neighborhood_fields| %>
+      <div><%= neighborhood_fields.text_field :name, :placeholder => "Name" %></div>
+      <div><%= neighborhood_fields.collection_select :borough_id, Borough.all, :id, :name, include_blank: "Select Borough" %></div>
+      <div><%= neighborhood_fields.text_area :comments, :placeholder => "Comments" %></div>
+    <% end %>
+
+  <div><%= f.submit %>
+<% end %>

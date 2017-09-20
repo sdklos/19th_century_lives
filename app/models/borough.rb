@@ -5,6 +5,8 @@ class Borough < ApplicationRecord
   has_many :person_neighborhoods, through: :neighborhoods
   has_many :people, through: :person_neighborhoods
 
+  validates :name, presence: true
+
   def display
     "#{self.name}"
   end
