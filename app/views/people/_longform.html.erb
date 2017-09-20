@@ -17,7 +17,7 @@
       <br>
 
   <h2><%= f.label :parent_ids, "Select Parents" %></h2>
-    <%= f.collection_check_boxes :parent_ids, Person.all, :id, :display %>
+    <%= f.collection_check_boxes :parent_ids, Person.all, :id, :display, :include_hidden => false %>
 
       <br>
 
@@ -33,7 +33,7 @@
       <br>
 
   <h2><%= f.label :spouse_ids, "Select Spouses" %></h2>
-    <%= f.collection_check_boxes :spouse_ids, Person.all, :id, :display %>
+    <%= f.collection_check_boxes :spouse_ids, Person.all, :id, :display, :include_hidden => false %>
 
       <br>
 
@@ -49,7 +49,7 @@
       <br>
 
   <h2><%= f.label :child_ids, "Select Children" %></h2>
-      <%= f.collection_check_boxes :child_ids, Person.all, :id, :display %>
+      <%= f.collection_check_boxes :child_ids, Person.all, :id, :display, :include_hidden => false  %>
 
       <br>
 
@@ -65,7 +65,7 @@
       <br>
 
   <h2>Select the Neighborhoods where your Person Lived</h2>
-    <div><%= f.collection_check_boxes :neighborhood_ids, Neighborhood.all, :id, :display %></div>
+    <div><%= f.collection_check_boxes :neighborhood_ids, Neighborhood.all, :id, :display, :include_hidden => false %></div>
 
       <br>
 

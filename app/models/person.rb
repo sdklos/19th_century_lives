@@ -14,6 +14,10 @@ class Person < ApplicationRecord
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
+  accepts_nested_attributes_for :parents, reject_if: :reject_relationships
+  accepts_nested_attributes_for :spouses, reject_if: :reject_relationships
+  accepts_nested_attributes_for :children, reject_if: :reject_relationships
+  accepts_nested_attributes_for :neighborhoods, reject_if: :reject_relationships
   accepts_nested_attributes_for :neighborhoods, reject_if: :reject_neighborhoods
 
   validates :name, :given_name, presence: true
@@ -21,6 +25,10 @@ class Person < ApplicationRecord
 
   def reject_neighborhoods(attributes)
     attributes['name'].blank? || attributes['borough_id'].blank?
+  end
+
+  def reject_relationships(attributes)
+    attributes['name'].blank? || attributes['given_name'].blank?
   end
 
 
@@ -73,8 +81,10 @@ class Person < ApplicationRecord
     aunts_and_uncles = []
     if self.parents
       self.parents.each do |parent|
-        parent.siblings.each do |sibling|
-          aunts_and_uncles << sibling
+        if parent.siblings
+          parent.siblings.each do |sibling|
+            aunts_and_uncles << sibling
+          end
         end
       end
     end
