@@ -119,5 +119,28 @@ class Person < ApplicationRecord
     "#{self.name}, #{self.given_name}"
   end
 
+  def title_display
+    "#{self.given_name} #{self.name}"
+  end
+
+  def build_associations
+    self.parents.build
+    self.parents.build
+    self.children.build
+    self.spouses.build
+    self.neighborhoods.build
+  end
+
+  def save_associations
+    respond_to do |format|
+      if self.save
+        format.html { redirect_to person_path(self), notice: 'Person was successfully created.'}
+        format.json {render action: 'show', status: :created, location: person_path(self)}
+      else
+        format.html {render action: 'new'}
+        format.json {render json: self.errors, status: :unprocessable_entity}
+      end
+    end
+  end
 
 end

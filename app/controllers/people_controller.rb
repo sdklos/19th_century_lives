@@ -9,30 +9,28 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
-    @person.parents.build
-    @person.parents.build
-    @person.children.build
-    @person.spouses.build
-    @person.neighborhoods.build
+    @person.build_associations
   end
 
   def create
     puts params
     @person = Person.new(person_params)
     @person.creator_id = current_user.id
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.'}
-        format.json {render action: 'show', status: :created, location: @person}
-      else
-        format.html {render action: 'new'}
-        format.json {render json: @person.errors, status: :unprocessable_entity}
-      end
-    end
+    @person.save_associations
+
   end
 
   def show
     @person = Person.find(params[:id])
+  end
+
+  def edit
+    @person = Person.find(params[:id])
+    @person.build_associations
+  end
+
+  def update
+    @person.save_associations
   end
 
   private

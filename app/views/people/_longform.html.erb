@@ -55,8 +55,8 @@
 
   <h2>Or Generate a New Child (You may create additional children later)</h2>
     <%= f.fields_for :children do |child_fields| %>
-      <%= child_fields.text_field :name, :placeholder => "Family Name" %>
       <div><%= child_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+      <%= child_fields.text_field :name, :placeholder => "Family Name" %>
       <div><%= child_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
       <div> <%= child_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
       <div> <%= child_fields.text_area :comments, :placeholder => "Comments" %></div>
