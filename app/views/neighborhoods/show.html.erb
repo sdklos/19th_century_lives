@@ -1,2 +1,3 @@
-<%= @neighborhood.display %>
-<%= @neighborhood.comments %>
+<div><%= @neighborhood.display %></div>
+<div><%= @neighborhood.comments %></div>
+<%= link_to "Edit #{@neighborhood.display}", edit_neighborhood_path(@neighborhood) %>
