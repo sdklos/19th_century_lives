@@ -1,7 +1,12 @@
 
 <h1><%= @person.title_display %></h1>
-
-<h3><%= link_to "Edit", edit_person_path(@person) %></h3>
+<h2><%= link_to "Show all People", people_path %></h2>
+<% if can? :update, @person %>
+  <h3><%= link_to "Edit #{@person.title_display}", edit_person_path(@person) %></h3>
+<% end %>
+<% if can? :destroy, @person %>
+  <h3><%= link_to "Delete #{@person.title_display}", person_path(@person), method: :delete %></h3>
+<% end %>
 
 <h2>Year of Birth:
 
@@ -45,7 +50,7 @@
   none entered
 <% end %>
 
-<h2>Spouses:</h2>
+<h2>Spouses and Co-parents:</h2>
 <% if @person.spouses %>
   <% @person.spouses.each do |spouse| %>
     <%= render :partial => "partials/index", locals: {path: person_path(spouse), item: spouse} %>

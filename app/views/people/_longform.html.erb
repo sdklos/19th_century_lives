@@ -8,74 +8,84 @@
         <% end %>
       </ul>
     <% end %>
-      <div class="form-group"><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
-      <div class="form-group"><%= f.text_field :name, :placeholder => "Family Name" %></div>
-      <div class="form-group"><%= f.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
-      <div class="form-group"><%= f.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
-      <div class="form-group"><%= f.text_area :comments, :placeholder => "Comments" %></div>
+      <div><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
+      <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
+      <div><%= f.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
+      <div><%= f.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
+      <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
+      <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
 
 
         <br>
 
     <h2><%= f.label :parent_ids, "Select Parents" %></h2>
-      <%= f.collection_check_boxes :parent_ids, Person.all, :id, :display, :include_hidden => false %>
-
+      <%= f.collection_check_boxes(:parent_ids, Person.alphabetize, :id, :display) do |b| %>
+        <div><%= b.check_box + b.text %></div>
+      <% end %>
         <br>
 
     <h2>Or Generate New Parents</h2>
         <%= f.fields_for :parents do |parent_fields| %>
-          <div class="form-group"><%= parent_fields.text_field :given_name, :placeholder => "Given Name" %></div>
-          <div class="form-group"><%= parent_fields.text_field :name, :placeholder => "Family Name" %></div>
-          <div class="form-group"><%= parent_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
-          <div class="form-group"> <%= parent_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
-          <div class="form-group"> <%= parent_fields.text_area :comments, :placeholder => "Comments" %></div>
+          <div><%= parent_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
+          <div><%= parent_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
+          <div><%= parent_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
+          <div> <%= parent_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
+          <div> <%= parent_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
+          <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
           <br>
         <% end %>
 
         <br>
 
-    <h2><%= f.label :spouse_ids, "Select Spouses" %></h2>
-      <%= f.collection_check_boxes :spouse_ids, Person.all, :id, :display, :include_hidden => false %>
+    <h2><%= f.label :spouse_ids, "Select Spouses or Co-parents" %></h2>
+      <%= f.collection_check_boxes(:spouse_ids, Person.alphabetize, :id, :display) do |b| %>
+        <div><%= b.check_box + b.text %></div>
+      <% end %>
 
         <br>
 
-    <h2>Or Generate a New Spouse (You may create additional spouses later)</h2>
+    <h2>Or Generate a New Spouse or Co-parent (You may create additional spouses later)</h2>
       <%= f.fields_for :spouses do |spouse_fields| %>
-        <div class="form-group"><%= spouse_fields.text_field :given_name, :placeholder => "Given Name" %></div>
-        <div class="form-group"><%= spouse_fields.text_field :name, :placeholder => "Family Name" %></div>
-        <div class="form-group"><%= spouse_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
-        <div class="form-group"> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
-        <div class="form-group"> <%= spouse_fields.text_area :comments, :placeholder => "Comments" %></div>
+        <div><%= spouse_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
+        <div><%= spouse_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
+        <div><%= spouse_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
+        <div> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
+        <div> <%= spouse_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
+        <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
       <% end %>
 
         <br>
 
     <h2><%= f.label :child_ids, "Select Children" %></h2>
-        <%= f.collection_check_boxes :child_ids, Person.all, :id, :display, :include_hidden => false  %>
+        <%= f.collection_check_boxes(:child_ids, Person.alphabetize, :id, :display) do |b| %>
+          <div><%= b.check_box + b.text %></div>
+        <% end %>
 
         <br>
 
     <h2>Or Generate a New Child (You may create additional children later)</h2>
       <%= f.fields_for :children do |child_fields| %>
-        <div class="form-group"><%= child_fields.text_field :given_name, :placeholder => "Given Name" %></div>
-        <%= child_fields.text_field :name, :placeholder => "Family Name" %>
-        <div class="form-group"><%= child_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
-        <div class="form-group"> <%= child_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
-        <div class="form-group"> <%= child_fields.text_area :comments, :placeholder => "Comments" %></div>
+        <div><%= child_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
+        <%= child_fields.text_field :name, value: nil, :placeholder => "Family Name" %>
+        <div><%= child_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
+        <div> <%= child_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
+        <div> <%= child_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
+        <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
       <% end %>
 
         <br>
 
     <h2>Select the Neighborhoods where your Person Lived</h2>
-      <div><%= f.collection_check_boxes :neighborhood_ids, Neighborhood.all, :id, :display, :include_hidden => false %></div>
-
+      <div><%= f.collection_check_boxes(:neighborhood_ids, Neighborhood.alphabetize, :id, :display) do |b| %></div>
+        <div><%= b.check_box + b.text %></div>
+      <% end %>
         <br>
 
     <h2>Or Create a New Neighborhood (You may create additional neighborhoods later)</h2>
       <%= f.fields_for :neighborhoods do |neighborhood_fields| %>
-        <div class="form-group"><%= neighborhood_fields.text_field :name, :placeholder => "Name" %></div>
-        <div class="form-group"><%= neighborhood_fields.collection_select :borough_id, Borough.all, :id, :name, include_blank: "Select Borough" %></div>
-        <div class="form-group"><%= neighborhood_fields.text_area :comments, :placeholder => "Comments" %></div>
+        <div class="form-group"><%= neighborhood_fields.text_field :name, value: nil, :placeholder => "Name" %></div>
+        <div class="form-group"><%= neighborhood_fields.collection_select :borough_id, Borough.all, :id, :name, value: nil, include_blank: "Select Borough" %></div>
+        <div class="form-group"><%= neighborhood_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
       <% end %>
 
     <div><%= f.submit %>

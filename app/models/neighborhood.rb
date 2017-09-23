@@ -6,6 +6,7 @@ class Neighborhood < ApplicationRecord
   has_many :people, through: :person_neighborhoods
 
   validates :name, :borough_id, presence: true
+  validates :name, uniqueness: true
 
   def display
     "#{self.name} (#{self.borough.name})"
@@ -22,4 +23,5 @@ class Neighborhood < ApplicationRecord
       end
     end
   end
+  
 end

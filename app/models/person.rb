@@ -1,5 +1,8 @@
 class Person < ApplicationRecord
-  extend Alphabetizable
+  include Rejection
+  include Relationships
+  include Display::InstanceMethods
+  extend Display::ClassMethods
 
   has_many :child_parents, class_name: 'ChildParent', foreign_key: :person_id
   has_many :parents, through: :child_parents, class_name: 'Person', foreign_key: :child_id
@@ -14,142 +17,60 @@ class Person < ApplicationRecord
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
-  accepts_nested_attributes_for :parents, reject_if: :reject_relationships
-  accepts_nested_attributes_for :spouses, reject_if: :reject_relationships
-  accepts_nested_attributes_for :children, reject_if: :reject_relationships
-  accepts_nested_attributes_for :neighborhoods, reject_if: :reject_relationships
-  accepts_nested_attributes_for :neighborhoods, reject_if: :reject_neighborhoods
+  # accepts_nested_attributes_for :parents, reject_if: :reject_person(params['person']['parents_attributes'])
+  # accepts_nested_attributes_for :spouses, reject_if: :reject_person
+  # accepts_nested_attributes_for :children, reject_if: :reject_person
+  # accepts_nested_attributes_for :neighborhoods, reject_if: :reject_neighborhood
 
   validates :name, :given_name, presence: true
+  validates :given_name, uniqueness: { scope: :name }
 
-
-  def reject_neighborhoods(attributes)
-    attributes['name'].blank? || attributes['borough_id'].blank?
-  end
-
-  def reject_relationships(attributes)
-    attributes['name'].blank? || attributes['given_name'].blank?
-  end
-
-
-  def persist_relationships
-    spouses = self.spouses
-    children = self.children
-    parents = self.parents
-    spouses.each do |spouse|
-      unless spouse.spouses.include?(self)
-        spouse.spouses << self
-        spouse.save
+  def parents_attributes=(parents_attributes)
+    parents_attributes.each do |i, parent_attributes|
+      parent = Person.find_or_initialize_by(parent_attributes)
+      if parent.save
+        self.parents << parent
       end
-      spouse.children += children
-      spouse.children.uniq
-      spouse.save
-    end
-    parents.each do |parent|
       unless parent.children.include?(self)
         parent.children << self
         parent.save
       end
     end
-    children.each do |child|
+  end
+
+  def spouses_attributes=(spouses_attributes)
+    spouses_attributes.each do |i, spouse_attributes|
+      spouse = Person.find_or_initialize_by(spouse_attributes)
+      if spouse.save
+        self.spouses << spouse
+      end
+      unless spouse.spouses.include?(self)
+        spouse.spouses << self
+        spouse.save
+      end
+    end
+  end
+
+  def children_attributes=(children_attributes)
+    children_attributes.each do |i, child_attributes|
+       child = Person.find_or_initialize_by(child_attributes)
+       if child.save
+         self.children << child
+      end
       unless child.parents.include?(self)
         child.parents << self
         child.save
       end
-      child.parents += spouses
-      child.parents.uniq
-      child.save
     end
   end
 
-  def self.persist_parenthood(child_id, parent_id)
-    a = Person.find(child_id)
-    b = Person.find(first_parent_id)
-    a.parents << b
-    b.children << a
-    a.save
-    b.save
-  end
-
-  def siblings
-    siblings = []
-    if self.parents
-      a = self.parents.map {|parent| parent.id}
-      Person.all.each do |person|
-        person.parents.each do |parent|
-          if a.include?(parent.id) && person != self
-            siblings << person
-          end
-        end
+  def neighborhoods_attributes=(neighborhoods_attributes)
+    neighborhoods_attributes.each do |i, neighborhood_attributes|
+      neighborhood = Neighborhood.find_or_create_by(neighborhood_attributes)
+      if neighborhood.save
+        self.neighborhoods << neighborhood
       end
     end
-    siblings.uniq!
-  end
-
-  def grandparents
-    grandparents = []
-    if self.parents
-      self.parents.each do |parent|
-        parent.parents.each do |grandparent|
-          grandparents << grandparent
-        end
-      end
-    end
-    grandparents
-  end
-
-  def aunts_and_uncles
-    aunts_and_uncles = []
-    if self.parents
-      self.parents.each do |parent|
-        if parent.siblings
-          parent.siblings.each do |sibling|
-            aunts_and_uncles << sibling
-          end
-        end
-      end
-    end
-    aunts_and_uncles
-  end
-
-  def nephews_and_nieces
-    nephews_and_nieces = []
-    if self.siblings
-      self.siblings.each do |sibling|
-        sibling.children.each do |child|
-          nephews_and_nieces << child
-        end
-      end
-    end
-    nephews_and_nieces
-  end
-
-  def cousins
-    cousins = []
-    if self.aunts_and_uncles
-      self.aunts_and_uncles.each do |aunt_uncle|
-        aunt_uncle.children.each do |cousin|
-          cousins << cousin
-        end
-      end
-    end
-    cousins
-  end
-
-  def display
-    "#{self.name}, #{self.given_name}"
-  end
-
-  def title_display
-    "#{self.given_name} #{self.name}"
-  end
-
-  def build_associations
-    self.parents.build
-    self.parents.build
-    self.children.build
-    self.spouses.build
-    self.neighborhoods.build
   end
 
 
