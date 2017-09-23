@@ -42,6 +42,7 @@ class PeopleController < ApplicationController
     @person.update(person_params)
     respond_to do |format|
       if @person.save
+        @person.persist_relationships
         format.html { redirect_to @person, notice: 'Person was successfully created.'}
         format.json {render action: 'show', status: :created, location: @person}
       else

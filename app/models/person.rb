@@ -32,13 +32,34 @@ class Person < ApplicationRecord
   end
 
 
-  def self.persist_marriage(first_spouse_id, second_spouse_id)
-    a = Person.find(first_spouse_id)
-    b = Person.find(second_spouse_id)
-    a.spouses << b
-    b.spouses << a
-    a.save
-    b.save
+  def persist_relationships
+    spouses = self.spouses
+    children = self.children
+    parents = self.parents
+    spouses.each do |spouse|
+      unless spouse.spouses.include?(self)
+        spouse.spouses << self
+        spouse.save
+      end
+      spouse.children += children
+      spouse.children.uniq
+      spouse.save
+    end
+    parents.each do |parent|
+      unless parent.children.include?(self)
+        parent.children << self
+        parent.save
+      end
+    end
+    children.each do |child|
+      unless child.parents.include?(self)
+        child.parents << self
+        child.save
+      end
+      child.parents += spouses
+      child.parents.uniq
+      child.save
+    end
   end
 
   def self.persist_parenthood(child_id, parent_id)

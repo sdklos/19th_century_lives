@@ -41,8 +41,8 @@
 
     <h2>Or Generate a New Spouse (You may create additional spouses later)</h2>
       <%= f.fields_for :spouses do |spouse_fields| %>
-        <%= spouse_fields.text_field :name, :placeholder => "Family Name" %>
         <div class="form-group"><%= spouse_fields.text_field :given_name, :placeholder => "Given Name" %></div>
+        <div class="form-group"><%= spouse_fields.text_field :name, :placeholder => "Family Name" %></div>
         <div class="form-group"><%= spouse_fields.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
         <div class="form-group"> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
         <div class="form-group"> <%= spouse_fields.text_area :comments, :placeholder => "Comments" %></div>
