@@ -1,5 +1,5 @@
 class State < ApplicationRecord
-  
+
   has_many :cities
   has_many :person_cities, through: :cities
   has_many :people, through: :person_cities
@@ -10,7 +10,7 @@ class State < ApplicationRecord
     "#{self.name}"
   end
 
-  def alphabetize
+  def self.alphabetize
     self.order(:abbreviation)
   end
 end

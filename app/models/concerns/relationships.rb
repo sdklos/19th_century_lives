@@ -5,7 +5,6 @@ module Relationships
     self.parents.build
     self.children.build
     self.spouses.build
-    self.neighborhoods.build
     self.cities.build
   end
 
