@@ -36,6 +36,12 @@ class Person < ApplicationRecord
         parent.save
       end
     end
+    parents = self.parents
+    parents.each do |parent|
+      parent.spouses += parents
+      parent.spouses.uniq
+      parent.save
+    end
   end
 
   def spouses_attributes=(spouses_attributes)

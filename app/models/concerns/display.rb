@@ -13,5 +13,11 @@ module Display
     def title_display
       "#{self.given_name} #{self.name}"
     end
+
+    def spouses_for_display
+      spouses_for_display = []
+      safe_array = self.spouses
+      spouses_for_display = safe_array.reject{|s| s == self}
+    end
   end
 end

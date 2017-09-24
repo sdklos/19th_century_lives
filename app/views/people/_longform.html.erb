@@ -25,13 +25,14 @@
         <br>
 
     <h2>Or Generate New Parents</h2>
+        <%= f.build_nested_records(:parents, minimum: 2, buffer: 2, maximum: 2) %>
         <%= f.fields_for :parents do |parent_fields| %>
           <div><%= parent_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
           <div><%= parent_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
           <div><%= parent_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
           <div> <%= parent_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
           <div> <%= parent_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-          <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
+          <div><%= parent_fields.hidden_field :creator_id, :value => current_user.id %></div>
           <br>
         <% end %>
 
@@ -45,13 +46,14 @@
         <br>
 
     <h2>Or Generate a New Spouse or Co-parent (You may create additional spouses later)</h2>
+      <%= f.build_nested_records(:spouses, minimum: 1, buffer: 1, maximum: 1) %>
       <%= f.fields_for :spouses do |spouse_fields| %>
         <div><%= spouse_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
         <div><%= spouse_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
         <div><%= spouse_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
         <div> <%= spouse_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
         <div> <%= spouse_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-        <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
+        <div><%= spouse_fields.hidden_field :creator_id, :value => current_user.id %></div>
       <% end %>
 
         <br>
@@ -64,13 +66,14 @@
         <br>
 
     <h2>Or Generate a New Child (You may create additional children later)</h2>
+      <%= f.build_nested_records(:children, minimum: 1, buffer: 1, maximum: 1) %>
       <%= f.fields_for :children do |child_fields| %>
         <div><%= child_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
         <%= child_fields.text_field :name, value: nil, :placeholder => "Family Name" %>
         <div><%= child_fields.select :year_of_birth, (1650..1900), value: nil, include_blank: "Select Year of Birth" %></div>
         <div> <%= child_fields.select :year_of_death, (1800..Time.zone.now.year), value: nil, include_blank: "Select Year of Death" %></div>
         <div> <%= child_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-        <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
+        <div><%= child_fields.hidden_field :creator_id, :value => current_user.id %></div>
       <% end %>
 
         <br>
@@ -82,10 +85,11 @@
         <br>
 
     <h2>Or Create a New Neighborhood (You may create additional neighborhoods later)</h2>
+      <%= f.build_nested_records(:neighborhoods, minimum: 1, buffer: 1, maximum: 1) %>
       <%= f.fields_for :neighborhoods do |neighborhood_fields| %>
-        <div class="form-group"><%= neighborhood_fields.text_field :name, value: nil, :placeholder => "Name" %></div>
-        <div class="form-group"><%= neighborhood_fields.collection_select :borough_id, Borough.all, :id, :name, value: nil, include_blank: "Select Borough" %></div>
-        <div class="form-group"><%= neighborhood_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
+        <div><%= neighborhood_fields.text_field :name, value: nil, :placeholder => "Name" %></div>
+        <div><%= neighborhood_fields.collection_select :borough_id, Borough.all, :id, :name, value: nil, include_blank: "Select Borough" %></div>
+        <div><%= neighborhood_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
       <% end %>
 
     <div><%= f.submit %>

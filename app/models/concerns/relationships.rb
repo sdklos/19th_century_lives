@@ -8,38 +8,38 @@ module Relationships
     self.neighborhoods.build
   end
 
-  def persist_relationships
-    spouses = self.spouses
-    children = self.children
-    parents = self.parents
-    spouses.each do |spouse|
-      unless spouse.spouses.include?(self)
-        spouse.spouses << self
-        spouse.save
-      end
-      spouse.children += children
-      spouse.children.uniq
-      spouse.save
-    end
-    parents.each do |parent|
-      unless parent.children.include?(self)
-        parent.children << self
-        parent.save
-      end
-      parent.spouses += parents
-      parent.spouses.uniq
-      parent.save
-    end
-    children.each do |child|
-      unless child.parents.include?(self)
-        child.parents << self
-        child.save
-      end
-      child.parents += spouses
-      child.parents.uniq
-      child.save
-    end
-  end
+  # def persist_relationships
+  #   spouses = self.spouses
+  #   children = self.children
+  #   spouses.each do |spouse|
+  #     unless spouse.spouses.include?(self)
+  #       spouse.spouses << self
+  #       spouse.save
+  #     end
+  #     spouse.children += children
+  #     spouse.children.uniq
+  #     spouse.save
+  #   end
+  #   parents.each do |parent|
+  #     unless parent.children.include?(self)
+  #       parent.children << self
+  #       parent.save
+  #     end
+  #     parents.each do |parent|
+  #       parent.spouses += parents
+  #       parent.spouses.reject {|spouse| spouse.id = parent.id}
+  #       parent.save
+  #   end
+  #   children.each do |child|
+  #     unless child.parents.include?(self)
+  #       child.parents << self
+  #       child.save
+  #     end
+  #     child.parents += spouses
+  #     child.parents.uniq
+  #     child.save
+  #   end
+  # end
 
   def siblings
     siblings = []

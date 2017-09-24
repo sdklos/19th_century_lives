@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    @person.build_associations
+    # @person.build_associations
   end
 
   def update

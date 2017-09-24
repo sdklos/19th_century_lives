@@ -41,7 +41,6 @@
 <% end %>
 
 <h2>Parents:</h2>
-<%= link_to "Add Parent", new_parent_path %>
 <% if @person.parents %>
   <% @person.parents.each do |parent| %>
     <%= render :partial => "partials/index", locals: {path: person_path(parent), item: parent} %>
@@ -51,8 +50,8 @@
 <% end %>
 
 <h2>Spouses and Co-parents:</h2>
-<% if @person.spouses %>
-  <% @person.spouses.each do |spouse| %>
+<% if @person.spouses_for_display %>
+  <% @person.spouses_for_display.each do |spouse| %>
     <%= render :partial => "partials/index", locals: {path: person_path(spouse), item: spouse} %>
   <% end %>
 <% else %>
