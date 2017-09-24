@@ -23,5 +23,5 @@ class Neighborhood < ApplicationRecord
       end
     end
   end
-  
+
 end

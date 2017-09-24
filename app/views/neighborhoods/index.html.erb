@@ -1,5 +1,5 @@
 <h1>Index of Neighborhoods</h1>
 <h2><%= link_to "Add a New Neighborhood", new_neighborhood_path %></h2>
-<% @neighborhoods.alphabetize.each do |neighborhood| %>
+<% @neighborhoods.each do |neighborhood| %>
 <h3><%= render :partial => "partials/index", locals: {path: neighborhood_path(neighborhood), item: neighborhood} %> </h3>
 <% end %>

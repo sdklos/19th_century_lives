@@ -4,4 +4,8 @@ class BoroughsController < ApplicationController
   def index
     @boroughs = Borough.alphabetize
   end
+
+  def show
+    @borough = Borough.find(params[:id])
+  end
 end

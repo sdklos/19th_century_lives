@@ -8,6 +8,45 @@ module Relationships
     self.neighborhoods.build
   end
 
+  def persist_relationships
+    #give all self's parents self as child
+    parents = self.parents
+    spouses = self.spouses
+    children = self.children
+    parents.each do |parent|
+      unless parent.children.include?(self)
+        parent.children << self
+        parent.save
+      end
+    #give all self's parents other parents as spouse
+      parent.spouses += parents
+      parent.spouses.uniq
+      parent.save
+    end
+    #give all self's spouses self as spouse
+    spouses.each do |spouse|
+      unless spouse.spouses.include?(self)
+        spouse.spouses << self
+        spouse.save
+      end
+    # give all self's spouses self's children as children
+      spouse.children += children
+      spouse.children.uniq
+      spouse.save
+    end
+    #give all self's children self as parent
+    children.each do |child|
+      unless child.parents.include?(self)
+        child.parents << self
+        child.save
+      end
+    #give all self's children spouses as parent
+      child.parents += spouses
+      child.parents.uniq
+      child.save
+    end
+  end
+
   def siblings
     siblings = []
     if self.parents
@@ -20,7 +59,7 @@ module Relationships
         end
       end
     end
-    siblings.uniq!
+    siblings.uniq
   end
 
   def grandparents
@@ -32,7 +71,7 @@ module Relationships
         end
       end
     end
-    grandparents
+    grandparents.uniq
   end
 
   def grandchildren
@@ -44,7 +83,7 @@ module Relationships
         end
       end
     end
-    grandchildren
+    grandchildren.uniq
   end
 
 
@@ -59,7 +98,7 @@ module Relationships
         end
       end
     end
-    aunts_and_uncles
+    aunts_and_uncles.uniq
   end
 
   def nephews_and_nieces
@@ -71,7 +110,7 @@ module Relationships
         end
       end
     end
-    nephews_and_nieces
+    nephews_and_nieces.uniq
   end
 
   def cousins
@@ -83,6 +122,6 @@ module Relationships
         end
       end
     end
-    cousins
+    cousins.uniq
   end
 end

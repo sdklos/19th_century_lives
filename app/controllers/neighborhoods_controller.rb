@@ -7,6 +7,7 @@ class NeighborhoodsController < ApplicationController
 
   def new
     @neighborhood = Neighborhood.new
+    @neighborhood.people.build
   end
 
   def create
@@ -28,6 +29,7 @@ class NeighborhoodsController < ApplicationController
 
   def edit
     @neighborhood = Neighborhood.find(params[:id])
+    @neighborhood.people.build
   end
 
   def update
@@ -47,6 +49,6 @@ class NeighborhoodsController < ApplicationController
   private
 
   def neighborhood_params
-    params.require(:neighborhood).permit(:name, :borough_id, :comments)
+    params.require(:neighborhood).permit(:name, :borough_id, :comments, :person_ids => [])
   end
 end

@@ -16,11 +16,6 @@ class Person < ApplicationRecord
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
-  # accepts_nested_attributes_for :parents, reject_if: :reject_person(params['person']['parents_attributes'])
-  # accepts_nested_attributes_for :spouses, reject_if: :reject_person
-  # accepts_nested_attributes_for :children, reject_if: :reject_person
-  # accepts_nested_attributes_for :neighborhoods, reject_if: :reject_neighborhood
-
   validates :name, :given_name, presence: true
   validates :given_name, uniqueness: { scope: :name }
 
@@ -30,16 +25,6 @@ class Person < ApplicationRecord
       if parent.save
         self.parents << parent
       end
-      unless parent.children.include?(self)
-        parent.children << self
-        parent.save
-      end
-    end
-    parents = self.parents
-    parents.each do |parent|
-      parent.spouses += parents
-      parent.spouses.uniq
-      parent.save
     end
   end
 
@@ -48,10 +33,6 @@ class Person < ApplicationRecord
       spouse = Person.find_or_initialize_by(spouse_attributes)
       if spouse.save
         self.spouses << spouse
-      end
-      unless spouse.spouses.include?(self)
-        spouse.spouses << self
-        spouse.save
       end
     end
   end
@@ -62,22 +43,6 @@ class Person < ApplicationRecord
        if child.save
          self.children << child
       end
-      unless child.parents.include?(self)
-        child.parents << self
-        child.save
-      end
-    end
-    children = self.children
-    spouses = self.spouses
-    children.each do |child|
-      child.parents += spouses
-      child.parents.uniq
-      child.save
-    end
-    spouses.each do |spouse|
-      spouse.children += children
-      spouse.children.uniq
-      spouse.save
     end
   end
 
@@ -89,6 +54,5 @@ class Person < ApplicationRecord
       end
     end
   end
-
 
 end

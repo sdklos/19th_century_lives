@@ -1,6 +1,6 @@
 <nav class="">
     <ul>
-        <li> <%= link_to "Home", root_path %> </li>
+        <h1> <%= link_to "Home", root_path %> </h1>
         <% if user_signed_in? %>
           <li>Signed in as <%= current_user.email %></li>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>

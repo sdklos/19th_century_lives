@@ -14,9 +14,8 @@ class PeopleController < ApplicationController
   end
 
   def create
-    binding.pry
     @person = Person.new(person_params)
-    @person.creator_id = current_user.id
+    @person.persist_relationships
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.'}
@@ -41,6 +40,7 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     @person.update(person_params)
+    @person.persist_relationships
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.'}
@@ -61,6 +61,6 @@ class PeopleController < ApplicationController
   private
 
   def person_params
-    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :comments, :parent_ids => [], :child_ids => [], :spouse_ids => [], :neighborhood_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :neighborhoods_attributes => [:name, :borough_id, :comments])
+    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id, :parent_ids => [], :child_ids => [], :spouse_ids => [], :neighborhood_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :neighborhoods_attributes => [:name, :borough_id, :comments])
   end
 end

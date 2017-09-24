@@ -1,5 +1,6 @@
 
   <%= form_for @person, :html => {:class => 'form-inline'} do |f| %>
+
     <% if @person.errors.any? %>
       <h2><%= pluralize(@person.errors.count, "error") %> prohibited this post from being saved:</h2>
       <ul>
@@ -8,7 +9,8 @@
         <% end %>
       </ul>
     <% end %>
-      <div><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
+
+      <div><%= f.text_field :given_name, :placeholder => "First Name" %></div>
       <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
       <div><%= f.select :year_of_birth, (1650..1900), include_blank: "Select Year of Birth" %></div>
       <div><%= f.select :year_of_death, (1800..Time.zone.now.year), include_blank: "Select Year of Death" %></div>
