@@ -68,6 +68,19 @@ module Relationships
     grandparents
   end
 
+  def grandchildren
+    grandchildren = []
+    if self.children
+      self.children.each do |child|
+        child.children.each do |grandchild|
+          grandchildren << grandchild
+        end
+      end
+    end
+    grandchildren
+  end
+
+
   def aunts_and_uncles
     aunts_and_uncles = []
     if self.parents

@@ -80,6 +80,11 @@
     <%= render :partial => "partials/index", locals: {path: person_path(grandparent), item: grandparent} %>
   <% end %>
 
+<h2>Grandchildren:</h2>
+  <% @person.grandchildren.each do |grandchild| %>
+    <%= render :partial => "partials/index", locals: {path: person_path(grandchild), item: grandchild} %>
+  <% end %>
+
 <h2>Aunts/Uncles:</h2>
   <% @person.aunts_and_uncles.each do |aunt_or_uncle| %>
     <%= render :partial => "partials/index", locals: {path: person_path(aunt_or_uncle), item: aunt_or_uncle} %>

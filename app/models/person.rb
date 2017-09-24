@@ -68,6 +68,18 @@ class Person < ApplicationRecord
         child.save
       end
     end
+    children = self.children
+    spouses = self.spouses
+    children.each do |child|
+      child.parents += spouses
+      child.parents.uniq
+      child.save
+    end
+    spouses.each do |spouse|
+      spouse.children += children
+      spouse.children.uniq
+      spouse.save
+    end
   end
 
   def neighborhoods_attributes=(neighborhoods_attributes)
