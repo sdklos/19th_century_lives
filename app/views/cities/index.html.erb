@@ -1,0 +1,5 @@
+<h1>Index of Cities</h1>
+<h2><%= link_to "Add a New City", new_city_path %></h2>
+<% @cities.each do |city| %>
+<h3><%= render :partial => "partials/index", locals: {path: city_path(city), item: city} %> </h3>
+<% end %>

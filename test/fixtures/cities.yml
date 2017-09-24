@@ -3,9 +3,9 @@
 one:
   name: MyString
   comments: MyText
-  borough_id: 1
+  : 
 
 two:
   name: MyString
   comments: MyText
-  borough_id: 1
+  : 

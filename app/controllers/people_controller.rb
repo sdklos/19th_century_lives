@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    # @person.build_associations
+    @person.build_associations
   end
 
   def update
@@ -61,6 +61,6 @@ class PeopleController < ApplicationController
   private
 
   def person_params
-    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id, :parent_ids => [], :child_ids => [], :spouse_ids => [], :neighborhood_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :neighborhoods_attributes => [:name, :borough_id, :comments])
+    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id, :parent_ids => [], :child_ids => [], :spouse_ids => [], :city_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :cities_attributes => [:name, :state_id, :comments])
   end
 end

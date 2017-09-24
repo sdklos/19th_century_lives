@@ -1,0 +1,5 @@
+<h1>Cities in <%= @state.display %></h1>
+<h3><%= link_to "Add a City", new_city_path %></h3>
+<% @state.cities.alphabetize.each do |city| %>
+  <h2><%= link_to city.name, city_path(city) %></h2>
+<% end %>

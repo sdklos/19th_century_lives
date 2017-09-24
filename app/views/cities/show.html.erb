@@ -1,0 +1,7 @@
+<h1><%= @city.display %></h1>
+<div><%= @city.comments %></div>
+<h3><%= link_to "Edit #{@city.display}", edit_city_path(@city) %></h3>
+<h2>People who Lived in <%= @city.name %></h2>
+  <% @city.people.alphabetize.each do |person| %>
+    <%= render :partial => "partials/index", locals: {path: person_path(person), item: person} %>
+  <% end %>

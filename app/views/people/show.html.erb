@@ -6,30 +6,30 @@
   <h3><%= link_to "Delete #{@person.title_display}", person_path(@person), method: :delete %></h3>
 <% end %>
 
-<h2>Year of Birth:
+<h2>Year of Birth:</h2>
 
 <% if @person.year_of_birth %>
   <%= @person.year_of_birth %>
 <% else %>
-  none entered
+  <%= link_to "Add Year of Birth", edit_person_path(@person) %>
 <% end %></h2>
 
-<h2>Year of Death:
+<h2>Year of Death:</h2>
 
 <% if @person.year_of_death %>
   <%= @person.year_of_death %>
 <% else %>
-  none entered
+  <%= link_to "Add Year of Death", edit_person_path(@person) %>
 <% end %></h2>
 
-<h2>Neighborhoods:</h2>
+<h2>Cities Where <%= @person.title_display %> Lived:</h2>
 
-<% if @person.neighborhoods.count > 0 %>
-  <% @person.neighborhoods.each do |neighborhood| %>
-    <%= render :partial => "partials/index", locals: {path: neighborhood_path(neighborhood), item: neighborhood} %>
+<% if @person.cities.count > 0 %>
+  <% @person.cities.each do |city| %>
+    <%= render :partial => "partials/index", locals: {path: city_path(city), item: city} %>
   <% end %>
 <% else %>
-  <%= link_to "Add a Neighborhood", new_neighborhood_path %>
+  <%= link_to "Add a City", new_city_path %>
 <% end %>
 
 <h2>Comments:</h2>
@@ -41,7 +41,7 @@
 <% end %>
 
 <h2>Parents:</h2>
-<% if @person.parents %>
+<% if @person.parents.count > 0 %>
   <% @person.parents.each do |parent| %>
     <%= render :partial => "partials/index", locals: {path: person_path(parent), item: parent} %>
   <% end %>

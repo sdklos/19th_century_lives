@@ -1,0 +1,25 @@
+<%= form_for(@city) do |f| %>
+
+  <% if @city.errors.any? %>
+    <h2><%= pluralize(@city.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <ul>
+      <% @city.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div><%= f.text_field :name, :placeholder => "Name" %></div>
+  <div><%= f.collection_select :state_id, State.all, :id, :abbreviation, value: nil, include_blank: "Select State" %></div>
+  <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
+
+    <br>
+  <h2><%= f.label :people, "Select People who Lived in this City" %></h2>
+  <%= f.collection_check_boxes(:person_ids, Person.alphabetize, :id, :display) do |b| %>
+  <div><%= b.check_box + b.text %></div>
+  <% end %>
+    <br>
+  <h2><%= link_to "Or Add a New Person", new_person_path %></h2>
+  <h3>(You can add a new city on that page also)</h3>
+    <div><%= f.submit %></div>
+<% end %>

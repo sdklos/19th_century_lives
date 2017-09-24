@@ -1,0 +1,5 @@
+<h1>Index of States</h1>
+
+<% @states.alphabetize.each do |state| %>
+  <%= render :partial => "partials/index", locals: {path: state_path(state), item: state} %>
+<% end %>

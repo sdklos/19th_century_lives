@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918032254) do
+ActiveRecord::Schema.define(version: 20170924190913) do
 
   create_table "boroughs", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20170918032254) do
     t.integer "person_id"
     t.integer "parent_id"
     t.integer "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.text "comments"
+    t.integer "state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,11 +61,25 @@ ActiveRecord::Schema.define(version: 20170918032254) do
     t.string "given_name"
   end
 
+  create_table "person_cities", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "person_neighborhoods", force: :cascade do |t|
     t.integer "person_id"
     t.integer "neighborhood_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "abbreviation"
   end
 
   create_table "users", force: :cascade do |t|

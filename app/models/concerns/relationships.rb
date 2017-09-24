@@ -6,6 +6,7 @@ module Relationships
     self.children.build
     self.spouses.build
     self.neighborhoods.build
+    self.cities.build
   end
 
   def persist_relationships

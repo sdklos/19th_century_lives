@@ -1,7 +1,7 @@
 class Person < ApplicationRecord
   include Relationships
-  include Display::InstanceMethods
-  extend Display::ClassMethods
+  include PersonDisplay::InstanceMethods
+  extend PersonDisplay::ClassMethods
 
   has_many :child_parents, class_name: 'ChildParent', foreign_key: :person_id
   has_many :parents, through: :child_parents, class_name: 'Person', foreign_key: :child_id
@@ -10,14 +10,24 @@ class Person < ApplicationRecord
   has_many :marriages, class_name: 'Marriage', foreign_key: :person_id
   has_many :spouses, through: :marriages, class_name: 'Person', foreign_key: :spouse_id
 
-  has_many :person_neighborhoods
-  has_many :neighborhoods, through: :person_neighborhoods
-  has_many :boroughs, through: :neighborhoods
+  has_many :person_cities
+  has_many :cities, through: :person_cities
+  has_many :states, through: :cities
 
   belongs_to :user, optional: true, foreign_key: :creator_id
 
   validates :name, :given_name, presence: true
   validates :given_name, uniqueness: { scope: :name }
+  validates :year_of_birth, allow_blank: true, numericality: {
+                                            only_integer: true,
+                                            greater_than_or_equal_to: 1400,
+                                            less_than_or_equal_to: Date.today.year
+                                          }
+  validates :year_of_death, allow_blank: true, numericality: {
+                                            only_integer: true,
+                                            greater_than_or_equal_to: 1400,
+                                            less_than_or_equal_to: Date.today.year
+                                          }
 
   def parents_attributes=(parents_attributes)
     parents_attributes.each do |i, parent_attributes|
@@ -46,11 +56,11 @@ class Person < ApplicationRecord
     end
   end
 
-  def neighborhoods_attributes=(neighborhoods_attributes)
-    neighborhoods_attributes.each do |i, neighborhood_attributes|
-      neighborhood = Neighborhood.find_or_create_by(neighborhood_attributes)
-      if neighborhood.save
-        self.neighborhoods << neighborhood
+  def cities_attributes=(cities_attributes)
+    cities_attributes.each do |i, city_attributes|
+      city = City.find_or_create_by(city_attributes)
+      if city.save
+        self.cities << city
       end
     end
   end

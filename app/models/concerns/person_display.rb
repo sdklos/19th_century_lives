@@ -1,4 +1,4 @@
-module Display
+module PersonDisplay
   module ClassMethods
     def alphabetize
       self.order(:name, :given_name)

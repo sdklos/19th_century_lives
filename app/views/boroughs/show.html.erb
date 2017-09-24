@@ -1,5 +1,0 @@
-<h1>Neighborhoods in <%= @borough.display %></h1>
-<h3><%= link_to "Add a Neighborhood", new_neighborhood_path %></h3>
-<% @borough.neighborhoods.alphabetize.each do |neighborhood| %>
-  <h2><%= link_to neighborhood.name, neighborhood_path(neighborhood) %></h2>
-<% end %>

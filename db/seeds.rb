@@ -6,25 +6,205 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'faker'
-
-10.times do
-  Person.create(
-    name: Faker::Name.last_name,
-    given_name: Faker::Name.first_name,
-    year_of_birth: Faker::Number.between(1650, 1800),
-    year_of_death: Faker::Number.between(1800, 2017),
-    comments: Faker::Lorem.sentence
-  )
-  Neighborhood.create(
-    name: Faker::GameOfThrones.city,
-    borough_id: Faker::Number.between(1, 5)
-  )
-end
-
-counter = 1
-Person.all.each do |person|
-  person.neighborhood_ids << counter
-  person.save
-  counter += 1
-end
+State.create([
+  {
+    name: "Alabama",
+    abbreviation: "AL"
+  },
+  {
+    name: "Alaska",
+    abbreviation: "AK"
+  },
+  {
+    name: "Arizona",
+    abbreviation: "AZ"
+  },
+  {
+    name: "Arkansas",
+    abbreviation: "AR"
+  },
+  {
+    name: "California",
+    abbreviation: "CA"
+  },
+  {
+    name: "Colorado",
+    abbreviation: "CO"
+  },
+  {
+    name: "Connecticut",
+    abbreviation: "CT"
+  },
+  {
+    name: "Delaware",
+    abbreviation: "DE"
+  },
+  {
+    name: "Florida",
+    abbreviation: "FL"
+  },
+  {
+    name: "Georgia",
+    abbreviation: "GA"
+  },
+  {
+    name: "Hawaii",
+    abbreviation: "HI"
+  },
+  {
+    name: "Idaho",
+    abbreviation: "ID"
+  },
+  {
+    name: "Illinois",
+    abbreviation: "IL"
+  },
+  {
+    name: "Indiana",
+    abbreviation: "IN"
+  },
+  {
+    name: "Iowa",
+    abbreviation: "IA"
+  },
+  {
+    name: "Kansas",
+    abbreviation: "KS"
+  },
+  {
+    name: "Kentucky",
+    abbreviation: "KY"
+  },
+  {
+    name: "Louisiana",
+    abbreviation: "LA"
+  },
+  {
+    name: "Maine",
+    abbreviation: "ME"
+  },
+  {
+    name: "Maryland",
+    abbreviation: "MD"
+  },
+  {
+    name: "Massachusetts",
+    abbreviation: "MA"
+  },
+  {
+    name: "Michigan",
+    abbreviation: "MI"
+  },
+  {
+    name: "Minnesota",
+    abbreviation: "MN"
+  },
+  {
+    name: "Mississippi",
+    abbreviation: "MS"
+  },
+  {
+    name: "Missouri",
+    abbreviation: "MO"
+  },
+  {
+    name: "Montana",
+    abbreviation: "MT"
+  },
+  {
+    name: "Nebraska",
+    abbreviation: "NE"
+  },
+  {
+    name: "Nevada",
+    abbreviation: "NV"
+  },
+  {
+    name: "New Hampshire",
+    abbreviation: "NH"
+  },
+  {
+    name: "New Jersey",
+    abbreviation: "NJ"
+  },
+  {
+    name: "New Mexico",
+    abbreviation: "NM"
+  },
+  {
+    name: "New York",
+    abbreviation: "NY"
+  },
+  {
+    name: "North Carolina",
+    abbreviation: "NC"
+  },
+  {
+    name: "North Dakota",
+    abbreviation: "ND"
+  },
+  {
+    name: "Ohio",
+    abbreviation: "OH"
+  },
+  {
+    name: "Oklahoma",
+    abbreviation: "OK"
+  },
+  {
+    name: "Oregon",
+    abbreviation: "OR"
+  },
+  {
+    name: "Pennsylvania",
+    abbreviation: "PA"
+  },
+  {
+    name: "Rhode Island",
+    abbreviation: "RI"
+  },
+  {
+    name: "South Carolina",
+    abbreviation: "SC"
+  },
+  {
+    name: "South Dakota",
+    abbreviation: "SD"
+  },
+  {
+    name: "Tennessee",
+    abbreviation: "TN"
+  },
+  {
+    name: "Texas",
+    abbreviation: "TX"
+  },
+  {
+    name: "Utah",
+    abbreviation: "UT"
+  },
+  {
+    name: "Vermont",
+    abbreviation: "VT"
+  },
+  {
+    name: "Virginia",
+    abbreviation: "VA"
+  },
+  {
+    name: "Washington",
+    abbreviation: "WA"
+  },
+  {
+    name: "West Virginia",
+    abbreviation: "WV"
+  },
+  {
+    name: "Wisconsin",
+    abbreviation: "WI"
+  },
+  {
+    name: "Wyoming",
+    abbreviation: "WY"
+  },
+])
