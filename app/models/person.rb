@@ -1,5 +1,4 @@
 class Person < ApplicationRecord
-  include Rejection
   include Relationships
   include Display::InstanceMethods
   extend Display::ClassMethods
