@@ -1,5 +1,6 @@
 class City < ApplicationRecord
-
+  extend Validation
+  
   belongs_to :state
   has_many :person_cities
   has_many :people, through: :person_cities
