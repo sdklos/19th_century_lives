@@ -1,3 +1,5 @@
+require 'pry'
+
 class Person < ApplicationRecord
   include Relationships
   include PersonDisplay::InstanceMethods
@@ -17,17 +19,17 @@ class Person < ApplicationRecord
   belongs_to :user, optional: true, foreign_key: :creator_id
 
   validates :name, :given_name, presence: true
-  validates_uniqueness_of :given_name, :scope => [:name, :year_of_birth, :year_of_death ]
+  #validates_uniqueness_of :given_name, scope: :name
   validates :year_of_birth, allow_blank: true, numericality: {
-                                            only_integer: true,
-                                            greater_than_or_equal_to: 1400,
-                                            less_than_or_equal_to: Date.today.year
-                                          }
+                                             only_integer: true,
+                                             greater_than_or_equal_to: 1400,
+                                             less_than_or_equal_to: Date.today.year
+                                           }
   validates :year_of_death, allow_blank: true, numericality: {
-                                            only_integer: true,
-                                            greater_than_or_equal_to: 1400,
-                                            less_than_or_equal_to: Date.today.year
-                                          }
+                                             only_integer: true,
+                                             greater_than_or_equal_to: 1400,
+                                             less_than_or_equal_to: Date.today.year
+                                           }
 
   def parents_attributes=(parents_attributes)
     parents_attributes.each do |i, parent_attributes|
@@ -44,6 +46,7 @@ class Person < ApplicationRecord
       if spouse.save
         self.spouses << spouse
       end
+      self.save
     end
   end
 
@@ -53,6 +56,7 @@ class Person < ApplicationRecord
        if child.save
          self.children << child
       end
+      self.save
     end
   end
 
@@ -62,6 +66,7 @@ class Person < ApplicationRecord
       if city.save
         self.cities << city
       end
+      self.save
     end
   end
 
