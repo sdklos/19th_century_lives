@@ -1,9 +1,9 @@
-<%= form_for @person, :html => {:class => 'form-inline'} do |f| %>
+<%= form_for(@city) do |f| %>
 
-  <% if @person.errors.any? %>
-    <h2><%= pluralize(@person.errors.count, "error") %> prohibited this post from being saved:</h2>
+  <% if @city.errors.any? %>
+    <h2><%= pluralize(@city.errors.count, "error") %> prohibited this post from being saved:</h2>
     <ul>
-      <% @person.errors.full_messages.each do |msg| %>
+      <% @city.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
@@ -14,58 +14,12 @@
 
       <br>
 
-  <h2><%= f.label :parent_ids, "Select Parents" %></h2>
-    <%= f.collection_check_boxes(:parent_ids, Person.alphabetize, :id, :display) do |b| %>
-      <div><%= b.check_box + b.text %></div>
-    <% end %>
-      <br>
-
-  <h2>Or Generate New Parents</h2>
-      <%= f.fields_for :parents do |parent_fields| %>
-        <%= render 'fields', :f => parent_fields %>
-      <% end %>
-
-      <br>
-
-  <h2><%= f.label :spouse_ids, "Select Spouses or Co-parents" %></h2>
-    <%= f.collection_check_boxes(:spouse_ids, Person.alphabetize, :id, :display) do |b| %>
-      <div><%= b.check_box + b.text %></div>
-    <% end %>
-
-      <br>
-
-  <h2>Or Generate a New Spouse or Co-parent (You may create additional spouses later)</h2>
-    <%= f.fields_for :spouses do |spouse_fields| %>
-      <%= render 'fields', :f => spouse_fields %>
-    <% end %>
-
-      <br>
-
-  <h2><%= f.label :child_ids, "Select Children" %></h2>
-      <%= f.collection_check_boxes(:child_ids, Person.alphabetize, :id, :display) do |b| %>
-        <div><%= b.check_box + b.text %></div>
-      <% end %>
-
-      <br>
-
-  <h2>Or Generate a New Child (You may create additional children later)</h2>
-      <%= f.fields_for :children do |child_fields| %>
-        <%= render 'fields', :f => child_fields %>
-        <br>
-      <% end %>
-
-      <br>
-
-  <h2>Select the City where your Person Lived</h2>
-    <div><%= f.collection_check_boxes(:city_ids, City.alphabetize, :id, :display) do |b| %></div>
-      <div><%= b.check_box + b.text %></div>
-    <% end %>
-      <br>
-
-  <h2>Or Create a New City (You may create additional neighborhoods later)</h2>
-    <%= f.fields_for :cities do |city_fields| %>
-      <%= render 'cities/fields', :f => city_fields %>
-    <% end %>
-
+  <h2><%= f.label :people, "Select People who Lived in this City" %></h2>
+  <%= f.collection_check_boxes(:person_ids, Person.alphabetize, :id, :display) do |b| %>
+    <div><%= b.check_box + b.text %></div>
+  <% end %>
+       <br>
+  <h2><%= link_to "Or Add a New Person", new_person_path %></h2>
+  <h3>(You can add a new city on that page also)</h3>
   <div><%= f.submit %></div>
 <% end %>

@@ -7,7 +7,8 @@ class Ability
         can :manage, :all
         cannot [:update, :destroy], State
       else
-        can :manage, Person, creator_id: user.id
+        can :create, Person
+        can [:update, :destroy], Person, creator_id: user.id
         can [:create, :update], City
         can :read, :all
       end

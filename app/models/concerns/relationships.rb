@@ -1,13 +1,5 @@
 module Relationships
 
-  def build_associations
-    self.parents.build
-    self.parents.build
-    self.children.build
-    self.spouses.build
-    self.cities.build
-  end
-
   def persist_relationships
     #give all self's parents self as child
     parents = self.parents
