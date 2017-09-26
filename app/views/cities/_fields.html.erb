@@ -1,0 +1,4 @@
+<div><%= f.text_field :name, value: nil, :placeholder => "Name" %></div>
+<div><%= f.collection_select :state_id, State.alphabetize, :id, :abbreviation, :selected => nil, include_blank: "Select State" %></div>
+<div><%= f.text_area :comments, :value => nil, :placeholder => "Comments" %></div>
+<br>

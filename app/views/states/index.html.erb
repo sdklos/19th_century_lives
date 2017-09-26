@@ -2,4 +2,10 @@
 
 <% @states.alphabetize.each do |state| %>
   <%= render :partial => "partials/index", locals: {path: state_path(state), item: state} %>
+  <% if state.cities.count > 0 %>
+    (<%= state.name %> has cities)
+  <% else %>
+    (no cities entered yet. <%= link_to "add a city to #{state.name}", new_city_path %>)
+  <% end %>
+
 <% end %>

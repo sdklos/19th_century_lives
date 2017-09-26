@@ -10,13 +10,12 @@
       </ul>
     <% end %>
 
-      <div><%= f.text_field :given_name, :placeholder => "First Name" %></div>
-      <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
-      <div><%= f.text_field :year_of_birth, :placeholder => "Year of Birth (four digits)" %></div>
-      <div><%= f.text_field :year_of_death, :placeholder => "Year of Death (four digits)" %></div>
-      <div><%= f.text_area :comments, :placeholder => "Comments" %></div>
-      <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
-
+    <div><%= f.text_field :given_name, :placeholder => "Given Name" %></div>
+    <div><%= f.text_field :name, :placeholder => "Family Name" %></div>
+    <div><%= f.text_field :year_of_birth, :placeholder => "Year of Birth (four digits)" %></div>
+    <div> <%= f.text_field :year_of_death, :placeholder => "Year of Death (four digits)" %></div>
+    <div> <%= f.text_area :comments, :placeholder => "Comments" %></div>
+    <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
 
         <br>
 
@@ -27,15 +26,12 @@
         <br>
 
     <h2>Or Generate New Parents</h2>
-        <%= f.build_nested_records(:parents, minimum: 2, buffer: 2, maximum: 2) %>
-        <%= f.fields_for :parents do |parent_fields| %>
-          <div><%= parent_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
-          <div><%= parent_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
-          <div><%= parent_fields.text_field :year_of_birth, :placeholder => "Year of Birth (four digits)" %></div>
-          <div> <%= parent_fields.text_field :year_of_death, :placeholder => "Year of Death (four digits)" %></div>
-          <div> <%= parent_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-          <div><%= parent_fields.hidden_field :creator_id, :value => current_user.id %></div>
-          <br>
+        <%= f.fields_for :parents, @person.parents.build do |parent_fields| %>
+          <%= render 'fields', :f => parent_fields %>
+        <% end %>
+
+        <%= f.fields_for :parents, @person.parents.build do |parent_fields| %>
+          <%= render 'fields', :f => parent_fields %>
         <% end %>
 
         <br>
@@ -48,14 +44,8 @@
         <br>
 
     <h2>Or Generate a New Spouse or Co-parent (You may create additional spouses later)</h2>
-      <%= f.build_nested_records(:spouses, minimum: 1, buffer: 1, maximum: 1) %>
-      <%= f.fields_for :spouses do |spouse_fields| %>
-        <div><%= spouse_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
-        <div><%= spouse_fields.text_field :name, value: nil, :placeholder => "Family Name" %></div>
-        <div><%= spouse_fields.text_field :year_of_birth, :placeholder => "Year of Birth (four digits)" %></div>
-        <div> <%= spouse_fields.text_field :year_of_death, :placeholder => "Year of Death (four digits)" %></div>
-        <div> <%= spouse_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-        <div><%= spouse_fields.hidden_field :creator_id, :value => current_user.id %></div>
+      <%= f.fields_for :spouses, @person.spouses.build do |spouse_fields| %>
+        <%= render 'fields', :f => spouse_fields %>
       <% end %>
 
         <br>
@@ -68,15 +58,10 @@
         <br>
 
     <h2>Or Generate a New Child (You may create additional children later)</h2>
-      <%= f.build_nested_records(:children, minimum: 1, buffer: 1, maximum: 1) %>
-      <%= f.fields_for :children do |child_fields| %>
-        <div><%= child_fields.text_field :given_name, value: nil, :placeholder => "Given Name" %></div>
-        <%= child_fields.text_field :name, value: nil, :placeholder => "Family Name" %>
-        <div><%= child_fields.text_field :year_of_birth, :placeholder => "Year of Birth (four digits)" %></div>
-        <div> <%= child_fields.text_field :year_of_death, :placeholder => "Year of Death (four digits)" %></div>
-        <div> <%= child_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
-        <div><%= child_fields.hidden_field :creator_id, :value => current_user.id %></div>
-      <% end %>
+        <%= f.fields_for :children, @person.children.build do |child_fields| %>
+          <%= render 'fields', :f => child_fields %>
+          <br>
+        <% end %>
 
         <br>
 
@@ -87,13 +72,10 @@
         <br>
 
     <h2>Or Create a New City (You may create additional neighborhoods later)</h2>
-      <%= f.build_nested_records(:cities, minimum: 1, buffer: 1, maximum: 1) %>
-      <%= f.fields_for :cities do |city_fields| %>
-        <div><%= city_fields.text_field :name, value: nil, :placeholder => "Name" %></div>
-        <div><%= city_fields.collection_select :state_id, State.all, :id, :abbreviation, value: nil, include_blank: "Select State" %></div>
-        <div><%= city_fields.text_area :comments, value: nil, :placeholder => "Comments" %></div>
+    <%= f.fields_for :cities, @person.cities.build do |city_fields| %>
+      <%= render 'cities/fields', :f => city_fields %>
+        <br>
       <% end %>
 
-    <div><%= f.submit %>
+    <div><%= f.submit %></div>
   <% end %>
-</form>

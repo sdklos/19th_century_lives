@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
-    @person.build_associations
+    #@person.build_associations
   end
 
   def create
@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    @person.build_associations
+    #@person.build_associations
   end
 
   def update
