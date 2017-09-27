@@ -35,7 +35,6 @@ class Person < ApplicationRecord
 
    accepts_nested_attributes_for :parents, :spouses, :children, :reject_if => :reject_person_attributes?
 
-   accepts_nested_attributes_for :cities, :reject_if => :reject_city_attributes?
 
   def reject_person_attributes?(attributes)
     !Person.attributes_are_valid?(attributes)
@@ -45,40 +44,13 @@ class Person < ApplicationRecord
     !City.attributes_are_valid?(attributes)
   end
 
-  # def parents_attributes=(parents_attributes)
-  #   parents_attributes.each do |i, parent_attributes|
-  #       parent = Person.find_or_initialize_by(parent_attributes)
-  #     if parent.save
-  #       self.parents << parent
-  #     end
-  #   end
-  # end
+  def cities_attributes=(cities_attributes)
+    cities_attributes.each do |i, city_attributes|
+      city = City.find_or_create_by(city_attributes)
+      if city.save
+        self.cities << city
+      end
+    end
+  end
 
-#   def spouses_attributes=(spouses_attributes)
-#     spouses_attributes.each do |i, spouse_attributes|
-#       spouse = Person.find_or_initialize_by(spouse_attributes)
-#       if spouse.save
-#         self.spouses << spouse
-#       end
-#     end
-#   end
-#
-#   def children_attributes=(children_attributes)
-#     children_attributes.each do |i, child_attributes|
-#        child = Person.find_or_initialize_by(child_attributes)
-#        if child.save
-#          self.children << child
-#       end
-#     end
-#   end
-#
-#   def cities_attributes=(cities_attributes)
-#     cities_attributes.each do |i, city_attributes|
-#       city = City.find_or_create_by(city_attributes)
-#       if city.save
-#         self.cities << city
-#       end
-#     end
-#   end
-#
  end

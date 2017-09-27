@@ -2,8 +2,10 @@
 <h1><%= @person.title_display %></h1>
 <h2><%= link_to "Show all People", people_path %></h2>
 <h2><%= link_to "Add Another Person", new_person_path %></h2>
-<% if can? :manage, @person %>
+<% if can? :update, @person %>
   <h3><%= link_to "Edit #{@person.title_display}", edit_person_path(@person) %></h3>
+<% end %>
+<% if can? :destroy, @person %>
   <h3><%= link_to "Delete #{@person.title_display}", person_path(@person), method: :delete %></h3>
 <% end %>
 
