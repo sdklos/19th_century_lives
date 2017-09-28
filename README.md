@@ -5,7 +5,12 @@ This creates a website for documenting families who have lived in the States ove
 * Ruby version 2.3.1
 
 * Clone the github repository, https://github.com/sdklos/family_tree_builder
-  then run rake db:migrate and rake db:seed to get started
+  then enter in your console:
+    bundle install
+    rake db:migrate
+    rake db:seed
+    rails s
+
 
 Contributing to the Family Tree Builder
 
