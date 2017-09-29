@@ -1,7 +1,8 @@
 require 'pry'
 
 class Person < ApplicationRecord
-  include Relationships
+  include Relationships::InstanceMethods
+  extend Relationships::ClassMethods
   include PersonDisplay::InstanceMethods
   extend PersonDisplay::ClassMethods
   extend Validation

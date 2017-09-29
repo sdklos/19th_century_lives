@@ -5,7 +5,11 @@ class PeopleController < ApplicationController
 
   def index
     @people = Person.alphabetize
+  end
 
+  def patriarchs_and_matriarchs
+    @people = Person.patriarchs_and_matriarchs
+    binding.pry
   end
 
   def new
