@@ -9,7 +9,6 @@ class PeopleController < ApplicationController
 
   def patriarchs_and_matriarchs
     @people = Person.patriarchs_and_matriarchs
-    binding.pry
   end
 
   def new

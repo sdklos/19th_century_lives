@@ -3,17 +3,22 @@ module Relationships
   module ClassMethods
 
     def patriarchs_and_matriarchs
-      patriarchs_and_matriarchs = []
-
-      self.all.each do |p|
-        patriarchs_and_matriarchs << p.parents.count == 0
+      pam = []
+      self.alphabetize.each do |p|
+        if p.parents_count == 0
+          pam << p
+        end
       end
-      patriarchs_and_matriarchs
+      pam
     end
 
   end
 
   module InstanceMethods
+
+    def parents_count
+      self.parents.count
+    end
 
     def persist_relationships
       #give all self's parents self as child
