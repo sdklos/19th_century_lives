@@ -7,10 +7,6 @@ class PeopleController < ApplicationController
     @people = Person.alphabetize
   end
 
-  def patriarchs_and_matriarchs
-    @people = Person.patriarchs_and_matriarchs
-  end
-
   def new
     @person = Person.new
   end

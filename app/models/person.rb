@@ -1,4 +1,5 @@
 require 'pry'
+require 'set'
 
 class Person < ApplicationRecord
   include Relationships::InstanceMethods
@@ -21,7 +22,7 @@ class Person < ApplicationRecord
   belongs_to :user, optional: true, foreign_key: :creator_id
 
   validates :name, :given_name, presence: true
-  validates_uniqueness_of :given_name, :scope => [:name]
+  validate :person_has_unique_name_and_parents
   validates :year_of_birth, allow_blank: true, numericality: {
                                              only_integer: true,
                                              greater_than_or_equal_to: 1400,
@@ -36,6 +37,17 @@ class Person < ApplicationRecord
 
    accepts_nested_attributes_for :parents, :spouses, :children, :reject_if => :reject_person_attributes?
 
+  def person_has_unique_name_and_parents
+    if Person.find_by(given_name: given_name, name: name)
+      a = Person.find_by(given_name: given_name, name: name)
+      if parent_ids
+        b = a.parent_ids & parent_ids
+        if b.any?
+          errors.add(:given_name, "a person with the same full name can't have the same parents")
+        end
+      end
+    end
+  end
 
   def reject_person_attributes?(attributes)
     !Person.attributes_are_valid?(attributes)
