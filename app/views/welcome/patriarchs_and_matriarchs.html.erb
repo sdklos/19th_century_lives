@@ -3,4 +3,7 @@
 <h2><%= link_to "Add a New Person", new_person_path %></h2>
 <% @people.each do |person| %>
   <%= render :partial => "partials/index", locals: {path: person_path(person), item: person} %>
+
+  <button class="js-more" data-id="<%= person.id %>">See more of <%= person.title_display %> </button>
+
 <% end %>
