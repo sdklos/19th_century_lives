@@ -6,7 +6,27 @@
   <h1>Family Tree Builder</h1>
   <h2>For the United States</h2>
 
-  <h3><%= link_to "Index of People", people_path %></h3>
-  <h3><%= link_to "Index of Patriarchs and Matriarchs", patriarchs_and_matriarchs_path %></h3>
-  <h3><%= link_to "Index of Cities", cities_path %></h3>
-  <h3><%= link_to "Index of States", states_path %></h3>
+  <h3><a href="#" class="js-index" data-path="people">Index of People</a></h3>
+  <div id="people"></div>
+  <h3><a href="#" class="js-index" data-path="patriarchs_and_matriarchs">Index of Patriarchs and Matriarchs</a></h3>
+  <div id="patriarchs_and_matriarchs"></div>
+  <h3><a href="#" class="js-index" data-path="cities">Index of Cities</a></h3>
+  <div id="cities"></div>
+  <h3><a href="#" class="js-index" data-path="states">Index of States</a></h3>
+  <div id="states"></div>
+
+  <script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".js-index").on("click", function() {
+
+      var path = $(this).data("path");
+      $.get("/" + path + ".json", function(items) {
+        items.forEach(function(item) {
+          $("#" + path).append(`<p><a href="#" class="js-more" data-id="item["id"]">` + item["given_name"] + " " + item["name"] + `</a></p>`)
+        })
+
+        var itemText = "<p>"
+      })
+    })
+  })
+  </script>
