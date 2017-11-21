@@ -5,6 +5,10 @@ class PeopleController < ApplicationController
 
   def index
     @people = Person.alphabetize
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @people }
+    end
   end
 
   def new
