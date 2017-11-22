@@ -32,6 +32,10 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @person }
+    end
   end
 
   def edit

@@ -11,5 +11,9 @@ class StatesController < ApplicationController
 
   def show
     @states = State.find(params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @state }
+    end
   end
 end

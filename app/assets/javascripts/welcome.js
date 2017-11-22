@@ -15,10 +15,17 @@ function closeListener() {
   })
 }
 
+function moreListener() {
   $(".js-more").on("click", function() {
+
     var id = $(this).data("id")
-    $("#more-" + id ).html("hi?")
+    var path = $(this).data("path")
+    $.get("/" + path + "/" + id + ".json", function(item) {
+      $("#more-" + id ).html("hi?")
+    })
+
   })
+}
 
 function peopleIndexListener() {
   $(".js-people-index").on("click", function(e) {
@@ -26,9 +33,10 @@ function peopleIndexListener() {
     $.get("/" + path + ".json", function(items) {
       $("#" + path).append(`<h4><a href="#" class="js-close" data-name="${path}">Close</a></h4>`)
       items.forEach(function(item) {
-        $("#" + path).append(`<p><a href="#" class="js-more" data-id="${item["id"]}">` + item["given_name"] + " " + item["name"] + `</a></p><div id="more-${item["id"]}"></div>`)
+        $("#" + path).append(`<p><a href="#" class="js-more" data-id="${item["id"]}" data-path="${path}">` + item["given_name"] + " " + item["name"] + `</a></p><div id="more-${item["id"]}"></div>`)
       })
       closeListener()
+      moreListener()
     })
   })
 }
@@ -39,9 +47,10 @@ function statesIndexListener() {
     $.get("/" + path + ".json", function(items) {
       $("#" + path).append(`<h4><a href="#" class="js-close" data-name="${path}">Close</a></h4>`)
       items.forEach(function(item) {
-        $("#" + path).append(`<p><a href="#" class="js-more" data-id="item["id"]">` + item["name"] + `</a></p>`)
+        $("#" + path).append(`<p><a href="#" class="js-more" data-id="item["id"]" data-path="${path}">` + item["name"] + `</a></p><div id="more-${item["id"]}"></div>`)
       })
       closeListener()
+      moreListener()
     })
   })
 }
@@ -52,9 +61,10 @@ function citiesIndexListener() {
     $.get("/" + path + ".json", function(items) {
       $("#" + path).append(`<h4><a href="#" class="js-close" data-name="${path}">Close</a></h4>`)
       items.forEach(function(item) {
-        $("#" + path).append(`<p><a href="#" class="js-more" data-id="${item["id"]}">` + item["name"] + "," + " " + item["state"]["abbreviation"] + `</a></p>`)
+        $("#" + path).append(`<p><a href="#" class="js-more" data-id="${item["id"]}" data-path="${path}">` + item["name"] + "," + " " + item["state"]["abbreviation"] + `</a></p><div id="more-${item["id"]}"></div>`)
       })
       closeListener()
+      moreListener()
     })
   })
 }
