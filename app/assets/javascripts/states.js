@@ -1,12 +1,17 @@
 function City(attributes) {
   this.name = attributes.name;
   this.id = attributes.id;
-  this.people = attributes.id;
-  this.state = attributes.state
+  this.state_name = attributes.state.name
+  this.state_id = attributes.state.id
 }
 
+$(function(){
+  City.templateSource = $("#entry-template").html()
+  City.template = Handlebars.compile(City.templateSource)
+})
+
 City.prototype.renderLI = function(){
-  
+  return City.template(this)
 }
 
 $(function(){
@@ -24,9 +29,9 @@ $(function(){
     })
     .success(function(json){
       var city = new City(json);
+      debugger
       var cityLi = city.renderLI()
-      $("div#show_cities").append(cityLi)
-      console.log(json)
+      $("div#new_city").append(cityLi)
     })
   })
 })

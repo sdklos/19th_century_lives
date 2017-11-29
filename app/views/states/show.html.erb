@@ -8,13 +8,16 @@
 <% end %>
 
 <div id="show_cities"><% @state.cities.alphabetize.each do |city| %>
-  <h2><%= link_to city.name, city_path(city) %></h2>
+  <%= city.name %>
+
 <% end %></div>
 
+<div id="new_city"></div>
+
 <script id="entry-template" type="text/x-handlebars-template">
-  <h1 class="name"></h1>
+  <h2 class="name_link"><a href="/cities/{{id}}">{{name}} </a></h2>
 
-  <h2 class="edit_link"><a href="/cities/37/edit">Edit Anaheim (California)</a></h2>
+  <h2 class="edit_link"><a href="/cities/{{id}}/edit">Edit {{name}}</a></h2>
 
-  <h2 class="associated_people">People who Lived in Anaheim</h2>
+  <h2 class="associated_people"></h2>
 </script>
