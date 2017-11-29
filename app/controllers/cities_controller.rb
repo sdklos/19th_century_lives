@@ -16,10 +16,11 @@ class CitiesController < ApplicationController
 
   def create
     @city = City.new(city_params)
-    respond_to do |format|
+    respond_to do |f|
       if @city.save
-        format.html { redirect_to @city, notice: 'City was successfully created.'}
-        format.json {render action: 'show', status: :created, location: @city}
+        f.json {render :json => @city}
+        f.html { redirect_to @city, notice: 'City was successfully created.'}
+
       else
         format.html {render action: 'new'}
         format.json {render json: @city.errors, status: :unprocessable_entity}
@@ -56,6 +57,6 @@ class CitiesController < ApplicationController
   private
 
   def city_params
-    params.require(:city).permit(:name, :state_id, :comments, :person_ids => [])
+    params.require(:city).permit(:name, :state_id, :person_ids => []).reject { |k, v| v.blank? }
   end
 end

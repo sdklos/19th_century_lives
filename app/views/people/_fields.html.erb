@@ -2,6 +2,5 @@
 <div><%= f.text_field :name, value: nil, :placeholder => "Family Name" %></div>
 <div><%= f.text_field :year_of_birth, value: nil, :placeholder => "Year of Birth (four digits)" %></div>
 <div> <%= f.text_field :year_of_death, value: nil, :placeholder => "Year of Death (four digits)" %></div>
-<div> <%= f.text_area :comments, value: nil, :placeholder => "Comments" %></div>
 <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
 <br>

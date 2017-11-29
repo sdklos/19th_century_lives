@@ -1,5 +1,20 @@
 <h1>Cities in <%= @state.display %></h1>
-<h3><%= link_to "Add a City", new_city_path %></h3>
-<% @state.cities.alphabetize.each do |city| %>
-  <h2><%= link_to city.name, city_path(city) %></h2>
+
+<h2>Add A City:</h2>
+<%= form_for(@state.cities.build) do |f| %>
+  <div><%= f.text_field :name, value: nil, :placeholder => "Name" %></div>
+  <%= f.hidden_field :state_id, :value => @state.id %>
+  <div><%= f.submit "Add City" %></div>
 <% end %>
+
+<div id="show_cities"><% @state.cities.alphabetize.each do |city| %>
+  <h2><%= link_to city.name, city_path(city) %></h2>
+<% end %></div>
+
+<script id="entry-template" type="text/x-handlebars-template">
+  <h1 class="name"></h1>
+
+  <h2 class="edit_link"><a href="/cities/37/edit">Edit Anaheim (California)</a></h2>
+
+  <h2 class="associated_people">People who Lived in Anaheim</h2>
+</script>

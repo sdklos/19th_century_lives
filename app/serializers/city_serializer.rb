@@ -1,5 +1,5 @@
 class CitySerializer < ActiveModel::Serializer
-  attributes :id, :name, :comments
+  attributes :id, :name
 
   belongs_to :state
   has_many :people, serializer: AbbreviatedPersonSerializer

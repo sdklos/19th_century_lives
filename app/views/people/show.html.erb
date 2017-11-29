@@ -35,14 +35,6 @@
   <%= link_to "Add a City", new_city_path %>
 <% end %>
 
-<h2>Comments:</h2>
-
-<% if @person.comments.length > 0 %>
-  <%= @person.comments %>
-<% else %>
-  <%= link_to "Add Comments", edit_person_path(@person) %>
-<% end %>
-
 <h2>Parents:</h2>
 <% if @person.parents.count > 0 %>
   <% @person.parents.each do |parent| %>

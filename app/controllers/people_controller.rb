@@ -63,9 +63,11 @@ class PeopleController < ApplicationController
     redirect_to people_path
   end
 
+
+
   private
 
   def person_params
-    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id, :parent_ids => [], :child_ids => [], :spouse_ids => [], :city_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :comments, :creator_id], :cities_attributes => [:name, :state_id, :comments])
+    params.require(:person).permit(:name, :given_name, :year_of_birth, :year_of_death, :creator_id, :parent_ids => [], :child_ids => [], :spouse_ids => [], :city_ids => [], :parents_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :creator_id], :children_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :creator_id], :spouses_attributes => [:name, :given_name, :year_of_birth, :year_of_death, :creator_id], :cities_attributes => [:name, :state_id]).reject { |k, v| v.blank? }
   end
 end

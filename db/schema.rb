@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926225733) do
+ActiveRecord::Schema.define(version: 20171129022102) do
 
   create_table "boroughs", force: :cascade do |t|
     t.string "name"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20170926225733) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
-    t.text "comments"
     t.integer "state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(version: 20170926225733) do
     t.string "name"
     t.integer "year_of_birth"
     t.integer "year_of_death"
-    t.text "comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"

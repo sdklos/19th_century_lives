@@ -4,8 +4,9 @@ class StatesController < ApplicationController
   def index
     @states = State.alphabetize
     respond_to do |format|
-      format.html { render :index }
       format.json { render json: @states }
+      format.html { render :index }
+
     end
   end
 

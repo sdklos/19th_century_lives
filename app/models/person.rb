@@ -22,7 +22,8 @@ class Person < ApplicationRecord
   belongs_to :user, optional: true, foreign_key: :creator_id
 
   validates :name, :given_name, presence: true
-  validate :person_has_unique_name_and_parents
+  validate :person_has_unique_name_and_parents, :on => :create
+
   validates :year_of_birth, allow_blank: true, numericality: {
                                              only_integer: true,
                                              greater_than_or_equal_to: 1400,
