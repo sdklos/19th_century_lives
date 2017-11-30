@@ -2,22 +2,14 @@
 
 <h2>Add A City:</h2>
 <%= form_for(@state.cities.build) do |f| %>
-  <div><%= f.text_field :name, value: nil, :placeholder => "Name" %></div>
+  <div><%= f.text_field :name, value: nil, :placeholder => "Name", id: "name_input" %></div>
   <%= f.hidden_field :state_id, :value => @state.id %>
   <div><%= f.submit "Add City" %></div>
 <% end %>
 
-<div id="show_cities"><% @state.cities.alphabetize.each do |city| %>
-  <%= city.name %>
-
-<% end %></div>
-
 <div id="new_city"></div>
 
-<script id="entry-template" type="text/x-handlebars-template">
-  <h2 class="name_link"><a href="/cities/{{id}}">{{name}} </a></h2>
+<div id="show_cities"><% @state.cities.alphabetize.each do |city| %>
+  <h3><%= link_to city.name, city_path(city) %></h3>
 
-  <h2 class="edit_link"><a href="/cities/{{id}}/edit">Edit {{name}}</a></h2>
-
-  <h2 class="associated_people"></h2>
-</script>
+<% end %></div>
