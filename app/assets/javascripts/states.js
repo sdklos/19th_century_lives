@@ -3,6 +3,7 @@ function City(attributes) {
   this.id = attributes.id;
   this.state_name = attributes.state.name
   this.state_id = attributes.state.id
+  this.state_abbreviation = attributes.state.abbreviation
 }
 
 City.success = function(json){
@@ -11,7 +12,7 @@ City.success = function(json){
   $("div#new_city").append(cityLi)
 }
 
-$(function(){
+$(".states.show").ready(function() {
   City.templateSource = $("#entry-template").html()
   City.template = Handlebars.compile(City.templateSource)
 })

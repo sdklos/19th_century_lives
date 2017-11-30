@@ -1,3 +1,6 @@
+var citiesButton = document.getElementById('load_cities_index'), count = 0;
+
+
 function closeIndex(div) {
     $("#" + div).html("")
 }
@@ -37,10 +40,15 @@ function loadStateInfo(data) {
 }
 
 function loadCitiesIndex() {
-  $.get("/cities.json", function(items) {
-      $("#cities").append(`<h4><a href="#" onclick="closeIndex('cities')">Close</a></h4>`)
-    items.forEach(function(item) {
-      $("#cities").append(`<p><a href="/cities/${item["id"]}">` + item["name"] + "," + " " + item["state"]["abbreviation"] + `</a></p><div id="more-${item["id"]}"></div>`)
+  count += 1
+  if (count % 2 === 0) {
+    closeIndex("cities")
+  } else {
+    $.get("/cities.json", function(items) {
+      items.forEach(function(item) {
+        var city = new City(item)
+        $("div#cities").append(HandlebarsTemplates['cities/index'](city))
+      })
     })
-  })
+  }
 }
