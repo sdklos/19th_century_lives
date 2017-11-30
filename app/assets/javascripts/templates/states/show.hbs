@@ -1,1 +1,4 @@
-<h3><a href="/cities/{{id}}">{{name}} </a></h3>
+
+{{#each this.cities}}
+  <p style="margin-left: 40px"><a href="/cities/{{id}}">{{this.name}} </a></p>
+{{/each}}

@@ -26,7 +26,6 @@ function loadStatesIndex() {
     closeIndex("states")
   } else {
     $.get("/states.json", function(items) {
-      $("#states").append(`<h4><a href="#" onclick="closeIndex('states')">Close</a></h4>`)
       items.forEach(function(item) {
         var state = new State(item)
         $("#states").append(HandlebarsTemplates['states/index'](state))
@@ -34,6 +33,21 @@ function loadStatesIndex() {
     })
   }
 }
+
+function loadStateInfo(data) {
+  var id = data["dataset"]["id"]
+  var url = "/states/" + id
+  $.get(url + ".json", function(item) {
+    var state = new State(item)
+    if(state.cities.length > 0) {
+      $("#state-" + id + "-cities").prepend(`<a href="#" onclick="closeIndex('state-${id}-cities')">Close List</a>`)
+      $("#state-" + id + "-cities").append(HandlebarsTemplates['states/show'](state))
+    } else {
+      $("#state-" + id + "-cities").append(`<a href="/states/${id}">Add Cities to ${name}></a>`)
+    }
+  })
+}
+
 function loadCitiesIndex() {
   count += 1
   if (count % 2 === 0) {
@@ -46,20 +60,4 @@ function loadCitiesIndex() {
       })
     })
   }
-}
-
-function loadStateInfo(data) {
-  var id = data["dataset"]["id"]
-  var url = "/states/" + id
-  $.get(url + ".json", function(item) {
-    $("#more-states-" + id ).append(`<a href=${url}>View on Separate Page</a><div>`)
-    $("#more-states-" + id + "-cities").append("Cities in the database:<br>")
-    if(item["cities"].length > 0) {
-      item["cities"].forEach(function (city){
-        $("#more-states-" + id + "-cities").append(`<a href="/cities/${city["id"]}">${city["name"]}</a>`)
-      })
-    } else {
-      $("#more-states-" + id + "-cities").append("there are no cities in the database yet")
-    }
-  })
 }

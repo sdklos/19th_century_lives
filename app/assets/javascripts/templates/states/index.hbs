@@ -1,5 +1,4 @@
-<p><a href="#" onclick="loadStateInfo(this)" data-id="${item["id"]}">` + item["name"] + `</a>
-</p>
-<div id="more-states-${item["id"]}">
-</div>
-<div id="more-states-${item["id"]}-cities"></div>
+<p><strong><a href="#" onclick="loadStateInfo(this)" data-id={{id}}>{{name}}</a></strong>
+  
+<a href="/states/{{id}}">(View on Separate Page)</a></p>
+<div id="state-{{id}}-cities"></div>

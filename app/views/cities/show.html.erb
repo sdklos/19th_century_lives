@@ -1,9 +1,15 @@
-<h1><%= @city.display %></h1>
-<h2><%= link_to "Show all Cities", cities_path %></h2>
-<h2><%= link_to "Add Another City", new_city_path %></h3>
-<h2><%= link_to "Edit #{@city.display}", edit_city_path(@city) %></h3>
+<h1><%= @city.name %>, <%= link_to "#{@city.state.name}", @city.state  %></h1>
 
-<h2>People who Lived in <%= @city.name %></h2>
-  <% @city.people.alphabetize.each do |person| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(person), item: person} %>
+<h2>People who Lived in <%= @city.name %>:</h2>
+  <% if @city.people.count > 0 %>
+    <% @city.people.alphabetize.each do |person| %>
+      <%= render :partial => "partials/index", locals: {path: person_path(person), item: person} %>
+    <% end %>
+  <% else %>
+    <h3>There are no people in the database who lived in <%= @city.name %></h3>
   <% end %>
+  <h3><%= link_to "Add a Person", new_person_path %></h3>
+
+  <h2><%= link_to "Edit #{@city.display}", edit_city_path(@city) %></h2>
+  <h2><%= link_to "Add Another City", new_city_path %></h3>
+  <h2><%= link_to "Show all Cities", cities_path %></h2>

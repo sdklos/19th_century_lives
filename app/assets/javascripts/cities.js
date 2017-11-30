@@ -23,6 +23,6 @@ City.formSubmit = function(e) {
 
 City.success = function(json){
   var city = new City(json);
-  $("div#new_city").prepend(HandlebarsTemplates['states/show'](city))
+  $("div#new_city").prepend(HandlebarsTemplates['states/show_new_city'](city))
   $("#name_input").val("")
 }
