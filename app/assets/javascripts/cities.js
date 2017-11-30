@@ -6,12 +6,6 @@ function City(attributes) {
   this.state_abbreviation = attributes.state.abbreviation
 }
 
-City.success = function(json){
-  var city = new City(json);
-  $("div#new_city").prepend(HandlebarsTemplates['states/show'](city))
-  $("#name_input").val("")
-}
-
 City.formSubmit = function(e) {
   e.preventDefault()
   var $form = $(this);
@@ -25,4 +19,10 @@ City.formSubmit = function(e) {
     dataType: "json"
   })
   .success(City.success)
+}
+
+City.success = function(json){
+  var city = new City(json);
+  $("div#new_city").prepend(HandlebarsTemplates['states/show'](city))
+  $("#name_input").val("")
 }

@@ -1,4 +1,10 @@
-var citiesButton = document.getElementById('load_cities_index'), count = 0;
+var citiesLink = document.getElementById('load_cities_index'), count = 0;
+
+var statesLink = document.getElementById('load_states_index'), count = 0;
+
+var peopleLink = document.getElementById('load_people_index'), count = 0;
+
+var patriarchsAndMatriarchsLink = document.getElementById('load_patriarchs_and_matriarchs_index'), count = 0
 
 
 function closeIndex(div) {
@@ -15,12 +21,31 @@ function loadPeopleIndex(path) {
 }
 
 function loadStatesIndex() {
-  $.get("/states.json", function(items) {
-    $("#states").append(`<h4><a href="#" onclick="closeIndex('states')">Close</a></h4>`)
-    items.forEach(function(item) {
-      $("#states").append(`<p><a href="#" onclick="loadStateInfo(this)" data-id="${item["id"]}">` + item["name"] + `</a></p><div id="more-states-${item["id"]}"></div><div id="more-states-${item["id"]}-cities"></div>`)
+  count += 1
+  if (count % 2 === 0) {
+    closeIndex("states")
+  } else {
+    $.get("/states.json", function(items) {
+      $("#states").append(`<h4><a href="#" onclick="closeIndex('states')">Close</a></h4>`)
+      items.forEach(function(item) {
+        var state = new State(item)
+        $("#states").append(HandlebarsTemplates['states/index'](state))
+      })
     })
-  })
+  }
+}
+function loadCitiesIndex() {
+  count += 1
+  if (count % 2 === 0) {
+    closeIndex("cities")
+  } else {
+    $.get("/cities.json", function(items) {
+      items.forEach(function(item) {
+        var city = new City(item)
+        $("div#cities").append(HandlebarsTemplates['cities/index'](city))
+      })
+    })
+  }
 }
 
 function loadStateInfo(data) {
@@ -37,18 +62,4 @@ function loadStateInfo(data) {
       $("#more-states-" + id + "-cities").append("there are no cities in the database yet")
     }
   })
-}
-
-function loadCitiesIndex() {
-  count += 1
-  if (count % 2 === 0) {
-    closeIndex("cities")
-  } else {
-    $.get("/cities.json", function(items) {
-      items.forEach(function(item) {
-        var city = new City(item)
-        $("div#cities").append(HandlebarsTemplates['cities/index'](city))
-      })
-    })
-  }
 }
