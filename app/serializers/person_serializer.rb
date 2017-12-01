@@ -5,5 +5,4 @@ class PersonSerializer < ActiveModel::Serializer
   has_many :spouses
 
   has_many :cities
-  has_many :states
 end
