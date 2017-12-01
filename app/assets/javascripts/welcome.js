@@ -2,20 +2,17 @@ var citiesLink = document.getElementById('load_cities_index'), count = 0;
 
 var statesLink = document.getElementById('load_states_index'), count = 0;
 
-var peopleLink = document.getElementById('load_people_index'), count = 0;
-
-var patriarchsAndMatriarchsLink = document.getElementById('load_patriarchs_and_matriarchs_index'), count = 0
-
 
 function closeIndex(div) {
     $("#" + div).html("")
 }
 
 function loadPeopleIndex(path) {
+  $(`#${path}`).prepend(`<a href="#" onclick="closeIndex('${path}')">Close List</a>`)
   $.get("/" + path + ".json", function(items) {
-    $("#" + path).append(`<h4><a href="#" onclick="closeIndex(id)" id="${path}">Close</a></h4>`)
     items.forEach(function(item) {
-      $("#" + path).append(`<p><a href="/${path}/${item["id"]}">` + item["given_name"] + " " + item["name"] + `</a></p><div id="more-${item["id"]}"></div>`)
+      var person = new Person(item)
+      $(`#${path}`).append(HandlebarsTemplates['people/index'](person))
     })
   })
 }
