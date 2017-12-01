@@ -38,7 +38,7 @@
 <h2>Parents:</h2>
 <% if @person.parents.count > 0 %>
   <% @person.parents.each do |parent| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(parent), item: parent} %>
+    <%= render :partial => "partials/person_template", locals: {relation: parent} %>
   <% end %>
 <% else %>
   <%= link_to "Add Parents", edit_person_path(@person) %>
@@ -47,7 +47,7 @@
 <h2>Spouses and Co-parents:</h2>
 <% if @person.spouses_for_display.count > 0 %>
   <% @person.spouses_for_display.each do |spouse| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(spouse), item: spouse} %>
+  <%= render :partial => "partials/person_template", locals: {relation: spouse} %>
   <% end %>
 <% else %>
   <%= link_to "Add a Spouse", edit_person_path(@person) %>
@@ -56,7 +56,8 @@
 <h2>Children:</h2>
 <% if @person.children.count > 0 %>
   <% @person.children.each do |child| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(child), item: child} %>
+  <%= render :partial => "partials/person_template", locals: {relation: child} %>
+
   <% end %>
 <% else %>
   <%= link_to "Add Children", edit_person_path(@person) %>
@@ -65,7 +66,7 @@
 <h2>Siblings:</h2>
 <% if @person.siblings.count > 0 %>
   <% @person.siblings.each do |sibling| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(sibling), item: sibling} %>
+    <%= render :partial => "partials/person_template", locals: {relation: sibling} %>
   <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>
