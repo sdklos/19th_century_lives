@@ -75,7 +75,7 @@
 <h2>Grandparents:</h2>
 <% if @person.grandparents.count > 0 %>
   <% @person.grandparents.each do |grandparent| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(grandparent), item: grandparent} %>
+    <%= render :partial => "partials/person_template", locals: {relation: grandparent} %>
   <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>
@@ -84,7 +84,7 @@
 <h2>Grandchildren:</h2>
 <% if @person.grandchildren.count > 0 %>
   <% @person.grandchildren.each do |grandchild| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(grandchild), item: grandchild} %>
+    <%= render :partial => "partials/person_template", locals: {relation: grandchild} %>
   <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>
@@ -93,7 +93,7 @@
 <h2>Aunts/Uncles:</h2>
 <% if @person.aunts_and_uncles.count > 0 %>
   <% @person.aunts_and_uncles.each do |aunt_or_uncle| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(aunt_or_uncle), item: aunt_or_uncle} %>
+    <%= render :partial => "partials/person_template", locals: {relation: aunt_or_uncle} %>
     <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>
@@ -102,7 +102,7 @@
 <h2>Nephews/Nieces:</h2>
 <% if @person.nephews_and_nieces.count > 0 %>
   <% @person.nephews_and_nieces.each do |nephew_or_niece| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(nephew_or_niece), item: nephew_or_niece} %>
+    <%= render :partial => "partials/person_template", locals: {relation: nephew_or_niece} %>
     <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>
@@ -111,7 +111,7 @@
 <h2>Cousins:</h2>
 <% if @person.cousins.count > 0 %>
   <% @person.cousins.each do |cousin| %>
-    <%= render :partial => "partials/index", locals: {path: person_path(cousin), item: cousin} %>
+    <%= render :partial => "partials/person_template", locals: {relation: cousin} %>
   <% end %>
 <% else %>
   <%= link_to "Add a New Person", new_person_path %>

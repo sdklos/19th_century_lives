@@ -41,7 +41,7 @@ function loadStateInfo(data) {
       $("#state-" + id + "-cities").prepend(`<a href="#" id="close-index-state-${id}-cities" onclick="closeIndex('state-${id}-cities')">Close List</a>`)
       $("#state-" + id + "-cities").append(HandlebarsTemplates['states/show'](state))
     } else {
-      $("#state-" + id + "-cities").append(`<a href="/states/${id}">Add Cities to ${name}></a>`)
+      $("#state-" + id + "-cities").append(`<a href="/states/${id}">Add Cities to ${state.name}</a>`)
     }
   })
 }
