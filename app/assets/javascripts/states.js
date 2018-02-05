@@ -10,6 +10,9 @@ State.prototype.alphabetizeCities = function() {
     if(a.name > b.name) return 1;
     return 0;
   })
+}
+
+State.all = function() {
 
 }
 

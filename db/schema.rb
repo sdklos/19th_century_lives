@@ -12,12 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20171129022102) do
 
-  create_table "boroughs", force: :cascade do |t|
-    t.string "name"
-    t.text "comments"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "child_parents", force: :cascade do |t|
     t.integer "person_id"
@@ -41,14 +37,6 @@ ActiveRecord::Schema.define(version: 20171129022102) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "neighborhoods", force: :cascade do |t|
-    t.string "name"
-    t.text "comments"
-    t.integer "borough_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "people", force: :cascade do |t|
     t.string "name"
     t.integer "year_of_birth"
@@ -63,13 +51,6 @@ ActiveRecord::Schema.define(version: 20171129022102) do
   create_table "person_cities", force: :cascade do |t|
     t.integer "person_id"
     t.integer "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "person_neighborhoods", force: :cascade do |t|
-    t.integer "person_id"
-    t.integer "neighborhood_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

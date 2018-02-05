@@ -1,7 +1,10 @@
 var citiesLink = document.getElementById('load_cities_index'), count = 0;
-
-var statesLink = document.getElementById('load_states_index'), count = 0;
-
+$(document).ready(function() {
+  var statesLink = document.querySelector('#load_states_index')
+  if (statesLink) {
+    statesLink.addEventListener('click', loadStatesIndex)
+  }
+})
 
 function closeIndex(div) {
     $("#" + div).html("")
@@ -19,21 +22,22 @@ function loadPeopleIndex(path) {
 }
 
 function loadStatesIndex() {
-  count += 1
-  if (count % 2 === 0) {
+  if (this.dataset.active === 'true') {
     closeIndex("states")
+    this.dataset.active = 'false'
   } else {
     $.get("/states.json", function(items) {
       items.forEach(function(item) {
         var state = new State(item)
         $("#states").append(HandlebarsTemplates['states/index'](state))
       })
-    })
+      this.dataset.active = 'true'
+    }.bind(this))
   }
 }
 
 function loadStateInfo(data) {
-  var id = data["dataset"]["id"]
+  var id = data.dataset.id
   var url = "/states/" + id
   $.get(url + ".json", function(item) {
     var state = new State(item)

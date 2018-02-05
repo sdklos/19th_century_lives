@@ -40,6 +40,10 @@ State.create([
     abbreviation: "DE"
   },
   {
+    name: "Washington, DC",
+    abbreviation: "DC"
+  },
+  {
     name: "Florida",
     abbreviation: "FL"
   },
