@@ -30,6 +30,7 @@ gem 'sass-rails', '>=3.2'
 gem 'jquery-rails'
 gem 'autoprefixer-rails'
 gem 'handlebars_assets'
+gem 'pry'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -52,7 +53,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'faker'
-  gem 'pry'
+
 end
 
 group :development do
