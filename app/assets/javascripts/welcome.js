@@ -1,8 +1,20 @@
-var citiesLink = document.getElementById('load_cities_index'), count = 0;
+
 $(document).ready(function() {
   var statesLink = document.querySelector('#load_states_index')
+  var citiesLink = document.querySelector('#load_cities_index')
+  var peopleLink = document.querySelector('#load_people_index')
+  var patriarchsLink = document.querySelector('#load_patriarchs_and_matriarchs_index')
   if (statesLink) {
     statesLink.addEventListener('click', loadStatesIndex)
+  }
+  if (citiesLink) {
+    citiesLink.addEventListener('click', loadCitiesIndex)
+  }
+  if (peopleLink) {
+    peopleLink.addEventListener('click', loadPeopleIndex)
+  }
+  if (patriarchsLink) {
+    patriarchsLink.addEventListener('click', loadPatriarchsIndex)
   }
 })
 
@@ -11,14 +23,34 @@ function closeIndex(div) {
     $("#close-index-" + div).html("")
 }
 
-function loadPeopleIndex(path) {
-  $(`#${path}`).prepend(`<a href="#" id="close-index-${path}" onclick="closeIndex('${path}')">Close List</a>`)
-  $.get("/" + path + ".json", function(items) {
-    items.forEach(function(item) {
-      var person = new Person(item)
-      $(`#${path}`).append(HandlebarsTemplates['people/index'](person))
-    })
-  })
+function loadPeopleIndex() {
+  if (this.dataset.active === 'true') {
+    closeIndex("people")
+    this.dataset.active = 'false'
+  } else {
+    $.get("/people.json", function(items) {
+      items.forEach(function(item) {
+        var person = new Person(item)
+        $("#people").append(HandlebarsTemplates['people/index'](person))
+      })
+      this.dataset.active = 'true'
+    }.bind(this))
+  }
+}
+
+function loadPatriarchsIndex() {
+  if (this.dataset.active === 'true') {
+    closeIndex("patriarchs_and_matriarchs")
+    this.dataset.active = 'false'
+  } else {
+    $.get("/patriarchs_and_matriarchs.json", function(items) {
+      items.forEach(function(item) {
+        var person = new Person(item)
+        $("#patriarchs_and_matriarchs").append(HandlebarsTemplates['people/index'](person))
+      })
+      this.dataset.active = 'true'
+    }.bind(this))
+  }
 }
 
 function loadStatesIndex() {
@@ -51,15 +83,16 @@ function loadStateInfo(data) {
 }
 
 function loadCitiesIndex() {
-  count += 1
-  if (count % 2 === 0) {
+  if (this.dataset.active === 'true') {
     closeIndex("cities")
+    this.dataset.active = 'false'
   } else {
     $.get("/cities.json", function(items) {
       items.forEach(function(item) {
-        var city = new City(item)
-        $("div#cities").append(HandlebarsTemplates['cities/index'](city))
+        var state = new City(item)
+        $("#cities").append(HandlebarsTemplates['cities/index'](city))
       })
-    })
+      this.dataset.active = 'true'
+    }.bind(this))
   }
 }
