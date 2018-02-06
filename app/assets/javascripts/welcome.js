@@ -89,7 +89,7 @@ function loadCitiesIndex() {
   } else {
     $.get("/cities.json", function(items) {
       items.forEach(function(item) {
-        var state = new City(item)
+        var city = new City(item)
         $("#cities").append(HandlebarsTemplates['cities/index'](city))
       })
       this.dataset.active = 'true'
