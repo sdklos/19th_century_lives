@@ -32,4 +32,4 @@
 en:
   hello: "Hello world"
   unauthorized:
-    default: "You are not authorized to perform this action."
+    default: "You must be signed in to do that."

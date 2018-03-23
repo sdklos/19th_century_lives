@@ -15,6 +15,7 @@ gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 
 gem 'active_model_serializers'
+gem 'js_cookie_rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
