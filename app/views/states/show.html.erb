@@ -1,7 +1,7 @@
 <h1>Cities in <%= @state.display %></h1>
 
 <h2>Add A City:</h2>
-<%= form_for(@state.cities.build) do |f| %>
+<%= form_for @state.cities.build, :html => {:id => "add_city_to_state"} do |f| %>
   <div><%= f.text_field :name, value: nil, :placeholder => "Name", id: "name_input" %></div>
   <%= f.hidden_field :state_id, :value => @state.id %>
   <div><%= f.submit "Add City" %></div>

@@ -20,7 +20,6 @@ class CitiesController < ApplicationController
       if @city.save
         f.json {render :json => @city}
         f.html { redirect_to @city, notice: 'City was successfully created.'}
-
       else
         format.html {render action: 'new'}
         format.json {render json: @city.errors, status: :unprocessable_entity}

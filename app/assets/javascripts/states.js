@@ -17,5 +17,5 @@ State.all = function() {
 }
 
 $(function(){
-  $("form#new_city").on("submit", City.formSubmit)
+  $("form#add_city_to_state").on("submit", City.formSubmit)
 })
