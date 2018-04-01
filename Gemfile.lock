@@ -246,7 +246,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   autoprefixer-rails
-  bootstrap-sass (~> 3.3.6)
+  bootstrap-sass (~> 3.3.7)
   byebug
   cancancan
   capybara (~> 2.13)

@@ -5,6 +5,13 @@ $(document).ready(function() {
   var citiesLink = document.querySelector('#load_cities_index')
   var peopleLink = document.querySelector('#load_people_index')
   var patriarchsLink = document.querySelector('#load_patriarchs_and_matriarchs_index')
+
+  $('.load_index').click(function () {
+    $('html, body').animate({
+      scrollTop: $(this).offset().top
+    }, 2000);
+  });
+
   if (statesLink) {
     statesLink.addEventListener('click', loadStatesIndex)
   }
@@ -83,6 +90,11 @@ function loadStatesIndex() {
         $("#states").append(HandlebarsTemplates['states/index'](state))
       })
       this.dataset.active = 'true'
+      $('.load_info').click(function () {
+        $('html, body').animate({
+          scrollTop: $(this).offset().top
+        }, 2000);
+      });
     }.bind(this))
   }
 }

@@ -11,8 +11,10 @@
 // about supported directives.
 //
 
+
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require handlebars
 //= require js.cookie
 //= require_tree ./templates
