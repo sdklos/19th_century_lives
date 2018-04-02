@@ -1,5 +1,9 @@
 {
   "name": "wiki_academic_app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.4.1",
+    "webpack-dev-server": "^3.1.1"
+  }
 }
